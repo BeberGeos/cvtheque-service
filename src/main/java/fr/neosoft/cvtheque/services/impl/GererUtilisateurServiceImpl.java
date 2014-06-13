@@ -63,7 +63,8 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 
 	public void updateProfil(Utilisateur user) throws FonctionnelleException {
 		Adresse userAdresse = user.getAdresse();
-		if(userAdresse != null && userAdresse.getRue().equals("")){
+		if(userAdresse != null && userAdresse.getRue().equals("") && userAdresse.getCodePostal() > 0 
+				&& userAdresse.getVille().equals("")){
 			
 		}
 	}

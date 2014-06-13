@@ -1,12 +1,12 @@
-package fr.neosoft;
+package fr.neosoft.cvtheque.tests;
 
 import static org.hamcrest.core.Is.isA;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.Calendar;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import fr.neosoft.cvtheque.utils.Constantes;
@@ -21,7 +21,7 @@ public class UtilsTest {
 			Utils.createDateFromString("");
 			fail("Aurait dû échouer à cause d'une chaine vide pour la date.");
 		}catch(FonctionnelleException e){
-			Assert.assertEquals("La date est une chaine vide -> exception.",e.getCodeErreur(), Constantes.DATE_FORMAT);
+			assertEquals("La date est une chaine vide -> exception.",e.getCodeErreur(), Constantes.DATE_FORMAT);
 		}
 	}
 
@@ -31,7 +31,7 @@ public class UtilsTest {
 			Utils.createDateFromString("01/17/1991");
 			fail("Le format américain (MM/dd/yyyy) doit lever une exception.");
 		}catch(FonctionnelleException e){
-			Assert.assertEquals("Date au format américain -> exception.", e.getCodeErreur(), Constantes.DATE_PARSE_ERROR);
+			assertEquals("Date au format américain -> exception.", e.getCodeErreur(), Constantes.DATE_PARSE_ERROR);
 		}
 	}
 
@@ -41,7 +41,7 @@ public class UtilsTest {
 			Utils.createDateFromString("01/17/91");
 			fail("Format dd/MM/yy incorrect, il faut dd/MM/yyyy.");
 		}catch(FonctionnelleException e){
-			Assert.assertEquals("dd/MM/yy n'est pas un format correct -> exception.", e.getCodeErreur(), Constantes.DATE_FORMAT);
+			assertEquals("dd/MM/yy n'est pas un format correct -> exception.", e.getCodeErreur(), Constantes.DATE_FORMAT);
 		}
 	}
 
@@ -62,7 +62,7 @@ public class UtilsTest {
 			Utils.checkNotNull("param", testObject);
 			fail("On doit levé une exception si l'objet est null.");
 		}catch(FonctionnelleException e){
-			Assert.assertEquals("Objet null -> exception.", e.getCodeErreur(), Constantes.OBJECT_NULL);
+			assertEquals("Objet null -> exception.", e.getCodeErreur(), Constantes.OBJECT_NULL);
 		}
 	}
 

@@ -4,14 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import fr.neosoft.cvtheque.dao.AdresseDao;
-import fr.neosoft.cvtheque.dao.CategorieDao;
-import fr.neosoft.cvtheque.dao.ClientDao;
-import fr.neosoft.cvtheque.dao.CompetenceDao;
-import fr.neosoft.cvtheque.dao.ExperienceDao;
-import fr.neosoft.cvtheque.dao.LangageDao;
 import fr.neosoft.cvtheque.dao.ManagerDao;
-import fr.neosoft.cvtheque.dao.UtilisateurDao;
 
 /**
  * Implementation of the manager Dao interface.

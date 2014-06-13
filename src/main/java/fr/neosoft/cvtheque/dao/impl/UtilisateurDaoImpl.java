@@ -1,13 +1,11 @@
 package fr.neosoft.cvtheque.dao.impl;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Query;
 
 import fr.neosoft.cvtheque.dao.UtilisateurDao;
 import fr.neosoft.cvtheque.entities.Utilisateur;
-import fr.neosoft.cvtheque.utils.Utils;
 
 /**
  * Implementation of the utilisateur Dao interface.
