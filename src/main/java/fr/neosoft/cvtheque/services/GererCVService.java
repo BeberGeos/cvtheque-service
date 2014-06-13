@@ -21,7 +21,7 @@ public interface GererCVService {
 	 * @return Utilisateur l'utilisateur trouvé
 	 * @throws FonctionnelleException
 	 */
-	public Utilisateur searchUserByLangageOrCategory(Long idLangage, Long idCategory)throws FonctionnelleException;
+	public Utilisateur searchUserByLangageOrCategory(final Long idLangage, final Long idCategory)throws FonctionnelleException;
 	
 	/**
 	 * Cette méthode va permettre de créer un fichier CV pour un utilisateur. 
@@ -31,5 +31,5 @@ public interface GererCVService {
 	 * @param typeDocument le type de document du CV
 	 * @throws FonctionnelleException
 	 */
-	public void createCV(Long idUser, TypeDocument typeDocument)throws FonctionnelleException;
+	public void createCV(final Long idUser, final TypeDocument typeDocument)throws FonctionnelleException;
 }

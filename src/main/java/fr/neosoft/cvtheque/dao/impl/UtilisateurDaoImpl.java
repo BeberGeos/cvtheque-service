@@ -1,9 +1,13 @@
 package fr.neosoft.cvtheque.dao.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
+
+import javax.persistence.Query;
 
 import fr.neosoft.cvtheque.dao.UtilisateurDao;
 import fr.neosoft.cvtheque.entities.Utilisateur;
+import fr.neosoft.cvtheque.utils.Utils;
 
 /**
  * Implementation of the utilisateur Dao interface.
@@ -22,4 +26,14 @@ public class UtilisateurDaoImpl extends GenericDaoImpl<Utilisateur> implements U
 		return listUtilisateurs;
 	}
 
+	public List<Utilisateur> findUsers(final String lastName, final String firstName, final String birthDate) {
+		String jpql = "SELECT u FROM Utilisateur u WHERE u.utilisateur.nom = :lastName AND u.utilisateur.prenom = :firstName AND u.utilisateur.dateNaissance = :birthDate";
+		Query query = entityManager.createQuery(jpql);
+		query.setParameter("lastName", lastName);
+		query.setParameter("firstName", firstName);
+		query.setParameter("birthDate", birthDate);
+		
+		List<Utilisateur> users = query.getResultList();
+		return users;
+	}
 }

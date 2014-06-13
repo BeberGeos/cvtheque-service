@@ -13,13 +13,13 @@ import fr.neosoft.cvtheque.utils.TypeDocument;
  */
 public class GererCVServiceImpl implements GererCVService {
 
-	public Utilisateur searchUserByLangageOrCategory(Long idLangage,
+	public Utilisateur searchUserByLangageOrCategory(final Long idLangage, final
 			Long idCategory) throws FonctionnelleException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public void createCV(Long idUser, TypeDocument typeDocument)
+	public void createCV(final Long idUser, final TypeDocument typeDocument)
 			throws FonctionnelleException {
 		// TODO Auto-generated method stub
 

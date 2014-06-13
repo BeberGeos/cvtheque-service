@@ -23,7 +23,7 @@ public interface GererReferentielService {
 	 * @param client le client à créer
 	 * @throws FonctionnelleException
 	 */
-	public void createClient(Client client)throws FonctionnelleException;
+	public void createClient(final Client client)throws FonctionnelleException;
 	/**
 	 * Cette méthode va permettre de modifier un client dans l’application. 
 	 * Les contrôles seront identiques à la création.
@@ -39,7 +39,7 @@ public interface GererReferentielService {
 	 * @param langage le langage à créer
 	 * @throws FonctionnelleException
 	 */
-	public void createLangage(Langage langage)throws FonctionnelleException;
+	public void createLangage(final Langage langage)throws FonctionnelleException;
 	/**
 	 * Cette méthode va permettre de modifier un langage de programmation dans l’application. 
 	 * Les contrôles seront identiques à la création.
@@ -55,7 +55,7 @@ public interface GererReferentielService {
 	 * @param categorie la categorie à créer
 	 * @throws FonctionnelleException
 	 */
-	public void createCategory(Categorie categorie)throws FonctionnelleException;
+	public void createCategory(final Categorie categorie)throws FonctionnelleException;
 	/**
 	 * cette méthode va permettre de modifier une catégorie dans l’application. 
 	 * Les contrôles seront identiques à la création. 
@@ -72,7 +72,7 @@ public interface GererReferentielService {
 	 * @return Client le client trouvé
 	 * @throws FonctionnelleException
 	 */
-	public Client searchClient(Long siret)throws FonctionnelleException;
+	public Client searchClient(final Long siret)throws FonctionnelleException;
 	/**
 	 * Cette méthode va retourner un Langage pour le paramètre donné.
 	 * 
@@ -80,7 +80,7 @@ public interface GererReferentielService {
 	 * @return Langage le langage trouvé
 	 * @throws FonctionnelleException
 	 */
-	public Langage searchlangage(Long idLangage)throws FonctionnelleException;
+	public Langage searchlangage(final Long idLangage)throws FonctionnelleException;
 	/**
 	 * Cette méthode va retourner une liste de langage.
 	 * 
@@ -88,7 +88,7 @@ public interface GererReferentielService {
 	 * @return List<Langage> la liste des langages trouvés
 	 * @throws FonctionnelleException
 	 */
-	public List<Langage> searchListLangage(String libelle)throws FonctionnelleException;
+	public List<Langage> searchListLangage(final String libelle)throws FonctionnelleException;
 	/**
 	 * Cette méthode va retourner une liste de Categorie.
 	 * 

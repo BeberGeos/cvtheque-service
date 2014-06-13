@@ -59,49 +59,49 @@ public class ManagerDaoImpl implements ManagerDao {
 		return entityManager;
 	}
 
-	public AdresseDao getDaoAdresse() {
+	public AdresseDaoImpl getDaoAdresse() {
 		if(daoAdresse == null){
 			daoAdresse = new AdresseDaoImpl(this);
 		}
 		return daoAdresse;
 	}
 
-	public CategorieDao getDaoCategorie() {
+	public CategorieDaoImpl getDaoCategorie() {
 		if(daoCategorie == null){
 			daoCategorie = new CategorieDaoImpl(this);
 		}
 		return daoCategorie;
 	}
 
-	public ClientDao getDaoClient() {
+	public ClientDaoImpl getDaoClient() {
 		if(daoClient == null){
 			daoClient = new ClientDaoImpl(this);
 		}
 		return daoClient;
 	}
 
-	public CompetenceDao getDaoCompetence() {
+	public CompetenceDaoImpl getDaoCompetence() {
 		if(daoCompetence == null){
 			daoCompetence = new CompetenceDaoImpl(this);
 		}
 		return daoCompetence;
 	}
 
-	public ExperienceDao getDaoExperience() {
+	public ExperienceDaoImpl getDaoExperience() {
 		if(daoExperience == null){
 			daoExperience = new ExperienceDaoImpl(this);
 		}
 		return daoExperience;
 	}
 
-	public LangageDao getDaoLangage() {
+	public LangageDaoImpl getDaoLangage() {
 		if(daoLangage == null){
 			daoLangage = new LangageDaoImpl(this);
 		}
 		return daoLangage;
 	}
 
-	public UtilisateurDao getDaoUtilisateur() {
+	public UtilisateurDaoImpl getDaoUtilisateur() {
 		if(daoUtilisateur == null){
 			daoUtilisateur = new UtilisateurDaoImpl(this);
 		}

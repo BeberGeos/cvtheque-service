@@ -16,7 +16,7 @@ import fr.neosoft.cvtheque.utils.FonctionnelleException;
  */
 public class GererReferentielServiceImpl implements GererReferentielService {
 
-	public void createClient(Client client) throws FonctionnelleException {
+	public void createClient(final Client client) throws FonctionnelleException {
 		// TODO Auto-generated method stub
 
 	}
@@ -26,7 +26,7 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 
 	}
 
-	public void createLangage(Langage langage) throws FonctionnelleException {
+	public void createLangage(final Langage langage) throws FonctionnelleException {
 		// TODO Auto-generated method stub
 
 	}
@@ -36,7 +36,7 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 
 	}
 
-	public void createCategory(Categorie categorie)
+	public void createCategory(final Categorie categorie)
 			throws FonctionnelleException {
 		// TODO Auto-generated method stub
 
@@ -48,17 +48,17 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 
 	}
 
-	public Client searchClient(Long siret) throws FonctionnelleException {
+	public Client searchClient(final Long siret) throws FonctionnelleException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Langage searchlangage(Long idLangage) throws FonctionnelleException {
+	public Langage searchlangage(final Long idLangage) throws FonctionnelleException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public List<Langage> searchListLangage(String libelle)
+	public List<Langage> searchListLangage(final String libelle)
 			throws FonctionnelleException {
 		// TODO Auto-generated method stub
 		return null;

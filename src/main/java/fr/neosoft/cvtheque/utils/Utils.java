@@ -21,7 +21,7 @@ public class Utils {
 	 * @return Calendar la date formatée exploitable par l'appli
 	 * @throws FonctionnelleException
 	 */
-	public static Calendar createDateFromString(String date) throws FonctionnelleException{
+	public static Calendar createDateFromString(final String date) throws FonctionnelleException{
 		Calendar calendar = Calendar.getInstance();
 		if(!date.matches("\\d{2}/\\d{2}/\\d{4}")){
 			throw new FonctionnelleException(Constantes.DATE_FORMAT, date);
@@ -46,7 +46,7 @@ public class Utils {
 	 * @param objet l'objet à tester
 	 * @throws FonctionnelleException
 	 */
-	public static void checkNotNull(String nomParam, Object objet)throws FonctionnelleException{
+	public static void checkNotNull(final String nomParam, final Object objet)throws FonctionnelleException{
 		if(objet == null){
 			throw new FonctionnelleException(Constantes.OBJECT_NULL, nomParam);
 		}

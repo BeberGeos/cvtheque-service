@@ -27,7 +27,7 @@ public interface GererUtilisateurService {
 	 * @param birthDate la date de naissance de l'utilisateur
 	 * @throws FonctionnelleException
 	 */
-	public void createUser(String lastName, String firstName, String birthDate)throws FonctionnelleException;
+	public void createUser(final String lastName, final String firstName, final String birthDate)throws FonctionnelleException;
 	/**
 	 * Cette méthode va permettre à un utilisateur de modifier son profil (adresse, nom, prenom, date de naissance). 
 	 * Le contrôle de l’adresse sera effectué dans cette méthode. 
@@ -57,7 +57,7 @@ public interface GererUtilisateurService {
 	 * @return Utilisateur l'utilisateur trouvé
 	 * @throws FonctionnelleException
 	 */
-	public Utilisateur searchUsers(String lastName, String firstName, String birthDate)throws FonctionnelleException;
+	public Utilisateur searchUsers(final String lastName, final String firstName, final String birthDate)throws FonctionnelleException;
 	/**
 	 * Cette méthode va retourner une liste d’utilisateurs pour les paramètres donnés.
 	 * 
@@ -65,7 +65,7 @@ public interface GererUtilisateurService {
 	 * @return List<Utilisateur> la liste d'utilisateurs trouvés
 	 * @throws FonctionnelleException
 	 */
-	public List<Utilisateur> searchUsersByClient(Long idClient)throws FonctionnelleException;
+	public List<Utilisateur> searchUsersByClient(final Long idClient)throws FonctionnelleException;
 	/**
 	 * Cette méthode va retourner un utilisateur pour un identifiant donné.
 	 * 
@@ -73,5 +73,5 @@ public interface GererUtilisateurService {
 	 * @return Utilisateur l'utilisateur trouvé
 	 * @throws FonctionnelleException
 	 */
-	public Utilisateur searchUser(Long idUser)throws FonctionnelleException;
+	public Utilisateur searchUser(final Long idUser)throws FonctionnelleException;
 }

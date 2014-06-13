@@ -1,7 +1,6 @@
 package fr.neosoft;
 
 import static org.hamcrest.core.Is.isA;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
@@ -20,39 +19,61 @@ public class UtilsTest {
 	public void testCreateDateFromStringThrowExceptionEmptyString() {
 		try{
 			Utils.createDateFromString("");
-			fail("");
+			fail("Aurait dû échouer à cause d'une chaine vide pour la date.");
+		}catch(FonctionnelleException e){
+			Assert.assertEquals("La date est une chaine vide -> exception.",e.getCodeErreur(), Constantes.DATE_FORMAT);
 		}
-		catch(FonctionnelleException e){
-			Assert.assertEquals("",e.getCodeErreur(), Constantes.DATE_FORMAT);
-		}
-	}
-	
-	@Test(expected = FonctionnelleException.class)
-	public void testCreateDateFromStringThrowExceptionAmericanFormat() {
-		Utils.createDateFromString("01/17/1991");
-	}
-	
-	@Test(expected = FonctionnelleException.class)
-	public void testCreateDateFromStringThrowExceptionInvalidFormat(){
-		Utils.createDateFromString("01/17/91");
-	}
-	
-	@Test
-	public void testCreateDateFromString() {
-		assertThat("CreateDateFromString return a Calendar", 
-				Utils.createDateFromString("17/01/1991"), isA(Calendar.class));
 	}
 
-	@Test(expected = FonctionnelleException.class)
-	public void testCheckNotNullThrowException() {
-		Object testObject = null;
-		Utils.checkNotNull("param", testObject);
+	@Test
+	public void testCreateDateFromStringThrowExceptionAmericanFormat() {
+		try{
+			Utils.createDateFromString("01/17/1991");
+			fail("Le format américain (MM/dd/yyyy) doit lever une exception.");
+		}catch(FonctionnelleException e){
+			Assert.assertEquals("Date au format américain -> exception.", e.getCodeErreur(), Constantes.DATE_PARSE_ERROR);
+		}
 	}
-	
+
+	@Test
+	public void testCreateDateFromStringThrowExceptionInvalidFormat(){
+		try{
+			Utils.createDateFromString("01/17/91");
+			fail("Format dd/MM/yy incorrect, il faut dd/MM/yyyy.");
+		}catch(FonctionnelleException e){
+			Assert.assertEquals("dd/MM/yy n'est pas un format correct -> exception.", e.getCodeErreur(), Constantes.DATE_FORMAT);
+		}
+	}
+
+	@Test
+	public void testCreateDateFromString() {
+		try{
+			assertThat("CreateDateFromString retourne un objet Calendar", 
+					Utils.createDateFromString("17/01/1991"), isA(Calendar.class));
+		}catch(FonctionnelleException e){
+			fail("La méthode doit retourner un objet de type Calendar.");
+		}
+	}
+
+	@Test
+	public void testCheckNotNullThrowException() {
+		try{
+			Object testObject = null;
+			Utils.checkNotNull("param", testObject);
+			fail("On doit levé une exception si l'objet est null.");
+		}catch(FonctionnelleException e){
+			Assert.assertEquals("Objet null -> exception.", e.getCodeErreur(), Constantes.OBJECT_NULL);
+		}
+	}
+
 	@Test
 	public void testCheckNotNull(){
-		Object objet = new Object();
-		assertEquals("CheckNotNull return true", true, Utils.checkNotNull("param", objet));
+		try{
+			Object objet = new Object();
+			Utils.checkNotNull("param", objet);
+		}catch(FonctionnelleException e){
+			fail("Aucune exception ne doit être levé si l'objet n'est pas null.");
+		}
 	}
 
 }

@@ -4,14 +4,13 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import fr.neosoft.cvtheque.dao.impl.ManagerDaoImpl;
+import fr.neosoft.cvtheque.dao.impl.UtilisateurDaoImpl;
 import fr.neosoft.cvtheque.entities.Adresse;
 import fr.neosoft.cvtheque.entities.Experience;
 import fr.neosoft.cvtheque.entities.Utilisateur;
@@ -27,26 +26,20 @@ import fr.neosoft.cvtheque.utils.Utils;
  *
  */
 public class GererUtilisateurServiceImpl implements GererUtilisateurService {
+	private ManagerDaoImpl managerDao = new ManagerDaoImpl();
 	
-	@PersistenceContext
-	EntityManager entityManager;
-
-	public void createUser(final String lastName, String firstName, String birthDate)
+	public void createUser(final String lastName, final String firstName, final String birthDate)
 			throws FonctionnelleException {
-		List<Utilisateur> users;
-		Utilisateur userToInsert;
-		String jpql = "SELECT u FROM Utilisateur u WHERE u.utilisateur.nom = :lastName AND u.utilisateur.prenom = :firstName AND u.utilisateur.dateNaissance = :birthDate";
-		Query query = entityManager.createQuery(jpql);
-		query.setParameter("lastName", lastName);
-		query.setParameter("firstName", firstName);
-		query.setParameter("birthDate", birthDate);
+		UtilisateurDaoImpl userDao = managerDao.getDaoUtilisateur();
+		List<Utilisateur> users = userDao.findUsers(lastName, firstName, birthDate);
 		
-		users = query.getResultList();
+		
 		
 		//Check si il existe déjà un client avec les paramètres donnés, si oui on lève une exception
 		if(users.size() > 0){
 			throw new FonctionnelleException(Constantes.USER_ALREADY_IN_DB, "");
 		}else{
+			Utilisateur userToInsert;
 			userToInsert = new Utilisateur();
 			userToInsert.setNom(lastName);
 			userToInsert.setPrenom(firstName);
@@ -62,9 +55,9 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 			//Si il y a violation de contrainte on lève une exception.
 			if(constraintViolations.size() > 0){
 				throw new FonctionnelleException(Constantes.USER_CONSTRAINT_VIOLATION, "");
+			}else{
+				userDao.create(userToInsert);
 			}
-			
-			entityManager.persist(userToInsert);
 		}
 	}
 

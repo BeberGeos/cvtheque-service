@@ -18,6 +18,7 @@ public class FonctionnelleException extends RuntimeException {
 	 * @param nomParam le paramètre en erreur
 	 */
 	public FonctionnelleException(String codeErreur, String nomParam){
+		super();
 		this.codeErreur = codeErreur;
 		this.nomParam = nomParam;
 	}
