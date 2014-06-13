@@ -6,8 +6,21 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * Implémentations de méthodes utiles au projet.
+ * 
+ * @author Adrien Cambillau
+ *
+ */
 public class Utils {
 
+	/**
+	 * Permet de transformer une chaine de caractères en date.
+	 * 
+	 * @param date la chainde de caractères de la date
+	 * @return Calendar la date formatée exploitable par l'appli
+	 * @throws FonctionnelleException
+	 */
 	public static Calendar createDateFromString(String date) throws FonctionnelleException{
 		Calendar calendar = Calendar.getInstance();
 		if(!date.matches("\\d{2}/\\d{2}/\\d{4}")){
@@ -26,14 +39,17 @@ public class Utils {
 		return calendar;
 	}
 
-	public static boolean checkNotNull(String nomParam, Object objet)throws FonctionnelleException{
-		boolean isOk = false;
+	/**
+	 * Check si un objet est nul.
+	 * 
+	 * @param nomParam 
+	 * @param objet l'objet à tester
+	 * @throws FonctionnelleException
+	 */
+	public static void checkNotNull(String nomParam, Object objet)throws FonctionnelleException{
 		if(objet == null){
 			throw new FonctionnelleException(Constantes.OBJECT_NULL, nomParam);
-		}else{
-			isOk = true;
 		}
-		return isOk;
 	}
 
 }

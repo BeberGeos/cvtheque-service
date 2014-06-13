@@ -15,5 +15,5 @@ public interface CompetenceDao extends GenericDao<Competence>{
 	 * Retrieve all the "competence".
 	 * @return List<Competence> the list of all the "competence"
 	 */
-	public abstract List<Competence> findAllCompetences();
+	public List<Competence> findAllCompetences();
 }

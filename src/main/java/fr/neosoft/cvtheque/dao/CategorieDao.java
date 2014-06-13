@@ -15,5 +15,5 @@ public interface CategorieDao extends GenericDao<Categorie>{
 	 * Retrieve all the "categorie".
 	 * @return List<Categorie> the list of all the "categorie"
 	 */
-	public abstract List<Categorie> findAllCategories();
+	public List<Categorie> findAllCategories();
 }

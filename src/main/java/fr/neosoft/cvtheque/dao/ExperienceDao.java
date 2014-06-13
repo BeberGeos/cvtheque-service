@@ -15,5 +15,5 @@ public interface ExperienceDao extends GenericDao<Experience>{
 	 * Retrieve all the "experience".
 	 * @return List<Experience> the list of all the "experience"
 	 */
-	public abstract List<Experience> findAllExperiences();
+	public List<Experience> findAllExperiences();
 }

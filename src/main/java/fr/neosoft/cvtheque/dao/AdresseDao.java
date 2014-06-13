@@ -15,5 +15,5 @@ public interface AdresseDao extends GenericDao<Adresse>{
 	 * Retrieve all the "adresse".
 	 * @return List<Adresse> the list of all the "adresse"
 	 */
-	public abstract List<Adresse> findAllAdresses();
+	public List<Adresse> findAllAdresses();
 }

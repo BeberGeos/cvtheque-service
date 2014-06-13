@@ -4,7 +4,32 @@ import fr.neosoft.cvtheque.entities.Utilisateur;
 import fr.neosoft.cvtheque.utils.FonctionnelleException;
 import fr.neosoft.cvtheque.utils.TypeDocument;
 
+/**
+ * Interface de gestion des CV
+ * 
+ * @author Adrien Cambillau
+ *
+ */
 public interface GererCVService {
-	public abstract Utilisateur searchUserByLangageOrCategory(Long idLangage, Long idCategory)throws FonctionnelleException;
-	public abstract void createCV(Long idUser, TypeDocument typeDocument)throws FonctionnelleException;
+	
+	/**
+	 * Cette méthode va retourner une liste d’utilisateurs pour les paramètres donnés. 
+	 * Les deux paramètres ne peuvent être null (au moins un des deux non null).
+	 * 
+	 * @param idLangage l'id du langage
+	 * @param idCategory l'id de la catégorie
+	 * @return Utilisateur l'utilisateur trouvé
+	 * @throws FonctionnelleException
+	 */
+	public Utilisateur searchUserByLangageOrCategory(Long idLangage, Long idCategory)throws FonctionnelleException;
+	
+	/**
+	 * Cette méthode va permettre de créer un fichier CV pour un utilisateur. 
+	 * L’identifiant de l’utilisateur doit être non null et le typeDocument provient de l’ENUM TypeDocument.
+	 * 
+	 * @param idUser l'id de l'utilisateur
+	 * @param typeDocument le type de document du CV
+	 * @throws FonctionnelleException
+	 */
+	public void createCV(Long idUser, TypeDocument typeDocument)throws FonctionnelleException;
 }

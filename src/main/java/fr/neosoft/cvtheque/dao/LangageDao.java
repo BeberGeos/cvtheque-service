@@ -15,5 +15,5 @@ public interface LangageDao extends GenericDao<Langage>{
 	 * Retrieve all the "langage".
 	 * @return List<Langage> the list of all the "langage"
 	 */
-	public abstract List<Langage> findAllLangages();
+	public List<Langage> findAllLangages();
 }

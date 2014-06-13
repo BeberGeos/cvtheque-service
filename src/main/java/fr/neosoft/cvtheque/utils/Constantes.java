@@ -1,5 +1,11 @@
 package fr.neosoft.cvtheque.utils;
 
+/**
+ * Code des messages erreurs et autres constantes utiles.
+ * 
+ * @author Adrien Cambillau
+ *
+ */
 public class Constantes {
 	
 	public final static String USER_ALREADY_IN_DB = "Utilisateur déjà présent en base de données.";

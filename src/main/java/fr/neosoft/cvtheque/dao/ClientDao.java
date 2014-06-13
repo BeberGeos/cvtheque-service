@@ -15,5 +15,5 @@ public interface ClientDao extends GenericDao<Client>{
 	 * Retrieve all the "client".
 	 * @return List<Client> the list of all the "client"
 	 */
-	public abstract List<Client> findAllClients();
+	public List<Client> findAllClients();
 }

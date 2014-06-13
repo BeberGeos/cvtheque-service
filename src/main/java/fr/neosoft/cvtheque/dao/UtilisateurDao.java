@@ -15,5 +15,5 @@ public interface UtilisateurDao extends GenericDao<Utilisateur>{
 	 * Retrieve all the "utilisateur".
 	 * @return List<Utilisateur> the list of all the "utilisateur"
 	 */
-	public abstract List<Utilisateur> findAllUtilisateurs();
+	public List<Utilisateur> findAllUtilisateurs();
 }
