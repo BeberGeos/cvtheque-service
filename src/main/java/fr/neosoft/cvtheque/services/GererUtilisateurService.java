@@ -27,7 +27,7 @@ public interface GererUtilisateurService {
 	 * @param birthDate la date de naissance de l'utilisateur
 	 * @throws FonctionnelleException
 	 */
-	public void createUser(final String lastName, final String firstName, final String birthDate)throws FonctionnelleException;
+	public void createUser(final Utilisateur user)throws FonctionnelleException;
 	/**
 	 * Cette méthode va permettre à un utilisateur de modifier son profil (adresse, nom, prenom, date de naissance). 
 	 * Le contrôle de l’adresse sera effectué dans cette méthode. 

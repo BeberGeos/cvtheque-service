@@ -13,5 +13,6 @@ public class Constantes {
 	public static final String OBJECT_NULL = "L'objet est null.";
 	public static final String DATE_PARSE_ERROR = "Erreur lors du formatage de la date.";
 	public static final String USER_CONSTRAINT_VIOLATION = "Vérifiez que les noms et prénoms font moins de 50 caractères et que la date est dans le passé.";
+	public static final String ADDRESS_CONSTRAINT_VIOLATION = "Le code postal est un code à 5 chiffres, le nom de la ville doit faire moins de 50 caractères.";
 
 }
