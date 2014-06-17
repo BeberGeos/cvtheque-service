@@ -22,7 +22,7 @@ public class UtilsTest {
 			Utils.createDateFromString("");
 			fail("Aurait dû échouer à cause d'une chaine vide pour la date.");
 		}catch(FonctionnelleException e){
-			assertEquals("La date est une chaine vide -> exception.",e.getCodeErreur(), Constantes.DATE_FORMAT);
+			assertEquals("La date est une chaine vide -> exception.", e.getCodeErreur(), Constantes.DATE_FORMAT);
 		}
 	}
 

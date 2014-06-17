@@ -12,8 +12,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import fr.neosoft.cvtheque.entities.Utilisateur;
-
 /**
  * Implémentations de méthodes utiles au projet.
  * 

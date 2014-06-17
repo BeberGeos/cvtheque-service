@@ -1,7 +1,6 @@
 package fr.neosoft.cvtheque.entities;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
 

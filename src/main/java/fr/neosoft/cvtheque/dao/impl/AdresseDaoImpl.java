@@ -6,7 +6,6 @@ import javax.persistence.Query;
 
 import fr.neosoft.cvtheque.dao.AdresseDao;
 import fr.neosoft.cvtheque.entities.Adresse;
-import fr.neosoft.cvtheque.entities.Utilisateur;
 
 /**
  * Implementation of the adresse Dao interface.

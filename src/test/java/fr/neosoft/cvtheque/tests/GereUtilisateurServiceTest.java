@@ -1,5 +1,6 @@
 package fr.neosoft.cvtheque.tests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.Calendar;
@@ -12,6 +13,9 @@ import org.mockito.MockitoAnnotations;
 
 import fr.neosoft.cvtheque.dao.UtilisateurDao;
 import fr.neosoft.cvtheque.entities.Utilisateur;
+import fr.neosoft.cvtheque.services.GererUtilisateurService;
+import fr.neosoft.cvtheque.services.impl.GererUtilisateurServiceImpl;
+import fr.neosoft.cvtheque.utils.Constantes;
 import fr.neosoft.cvtheque.utils.FonctionnelleException;
 import fr.neosoft.cvtheque.utils.Utils;
 
@@ -26,18 +30,18 @@ public class GereUtilisateurServiceTest {
 	}
 	
 	@Test
-	@Ignore
 	public void testCreateUserNoName() {
-		//TODO IMPLEMENTER
 		Utilisateur user = new Utilisateur();
 		Calendar cal = Utils.createDateFromString("17/01/1991");
-		user.setNom("Nom");
+		user.setNom("");
 		user.setPrenom("Prenom");
 		user.setDateNaissance(cal);
+		GererUtilisateurService gererUserTest = new GererUtilisateurServiceImpl();
 		try{
-			userDaoMock.create(user);
+			gererUserTest.createUser(user);
+			fail("Un champ est vide, doit lever une exception.");
 		}catch(FonctionnelleException e){
-			fail("Données en entrée correctes, ne doit pas lever d'exception.");
+			assertEquals("Pas de nom -> Exception", e.getCodeErreur(), Constantes.FIELD_REQUIRED);
 		}
 	}
 
@@ -48,8 +52,9 @@ public class GereUtilisateurServiceTest {
 		user.setNom("Nom");
 		user.setPrenom("Prenom");
 		user.setDateNaissance(cal);
+		GererUtilisateurService gererUserTest = new GererUtilisateurServiceImpl();
 		try{
-			userDaoMock.create(user);
+			gererUserTest.createUser(user);
 		}catch(FonctionnelleException e){
 			fail("Données en entrée correctes, ne doit pas lever d'exception.");
 		}

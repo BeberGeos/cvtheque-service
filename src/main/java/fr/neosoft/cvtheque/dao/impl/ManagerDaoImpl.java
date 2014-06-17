@@ -4,7 +4,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import fr.neosoft.cvtheque.dao.AdresseDao;
+import fr.neosoft.cvtheque.dao.CategorieDao;
+import fr.neosoft.cvtheque.dao.ClientDao;
+import fr.neosoft.cvtheque.dao.CompetenceDao;
+import fr.neosoft.cvtheque.dao.ExperienceDao;
+import fr.neosoft.cvtheque.dao.LangageDao;
 import fr.neosoft.cvtheque.dao.ManagerDao;
+import fr.neosoft.cvtheque.dao.UtilisateurDao;
+import fr.neosoft.cvtheque.utils.TechniqueException;
 
 /**
  * Implementation of the manager Dao interface.
@@ -17,22 +25,22 @@ public class ManagerDaoImpl implements ManagerDao {
 	private EntityManagerFactory emf = null;
 	private EntityManager entityManager = null;
 	
-	private AdresseDaoImpl daoAdresse;
-	private CategorieDaoImpl daoCategorie;
-	private ClientDaoImpl daoClient;
-	private CompetenceDaoImpl daoCompetence;
-	private ExperienceDaoImpl daoExperience;
-	private LangageDaoImpl daoLangage;
-	private UtilisateurDaoImpl daoUtilisateur;
+	private AdresseDao daoAdresse;
+	private CategorieDao daoCategorie;
+	private ClientDao daoClient;
+	private CompetenceDao daoCompetence;
+	private ExperienceDao daoExperience;
+	private LangageDao daoLangage;
+	private UtilisateurDao daoUtilisateur;
 
-	public void connect() throws Exception {
+	public void connect() throws TechniqueException {
 		disconnect();
 		
-		emf = Persistence.createEntityManagerFactory("cvtheque");
+		emf = Persistence.createEntityManagerFactory("cvtheque-service");
 		entityManager = emf.createEntityManager();
 	}
 
-	public void disconnect() throws Exception {
+	public void disconnect() throws TechniqueException {
 		if(entityManager != null){
 			entityManager.close();
 			entityManager = null;
@@ -52,49 +60,49 @@ public class ManagerDaoImpl implements ManagerDao {
 		return entityManager;
 	}
 
-	public AdresseDaoImpl getDaoAdresse() {
+	public AdresseDao getDaoAdresse() {
 		if(daoAdresse == null){
 			daoAdresse = new AdresseDaoImpl(this);
 		}
 		return daoAdresse;
 	}
 
-	public CategorieDaoImpl getDaoCategorie() {
+	public CategorieDao getDaoCategorie() {
 		if(daoCategorie == null){
 			daoCategorie = new CategorieDaoImpl(this);
 		}
 		return daoCategorie;
 	}
 
-	public ClientDaoImpl getDaoClient() {
+	public ClientDao getDaoClient() {
 		if(daoClient == null){
 			daoClient = new ClientDaoImpl(this);
 		}
 		return daoClient;
 	}
 
-	public CompetenceDaoImpl getDaoCompetence() {
+	public CompetenceDao getDaoCompetence() {
 		if(daoCompetence == null){
 			daoCompetence = new CompetenceDaoImpl(this);
 		}
 		return daoCompetence;
 	}
 
-	public ExperienceDaoImpl getDaoExperience() {
+	public ExperienceDao getDaoExperience() {
 		if(daoExperience == null){
 			daoExperience = new ExperienceDaoImpl(this);
 		}
 		return daoExperience;
 	}
 
-	public LangageDaoImpl getDaoLangage() {
+	public LangageDao getDaoLangage() {
 		if(daoLangage == null){
 			daoLangage = new LangageDaoImpl(this);
 		}
 		return daoLangage;
 	}
 
-	public UtilisateurDaoImpl getDaoUtilisateur() {
+	public UtilisateurDao getDaoUtilisateur() {
 		if(daoUtilisateur == null){
 			daoUtilisateur = new UtilisateurDaoImpl(this);
 		}

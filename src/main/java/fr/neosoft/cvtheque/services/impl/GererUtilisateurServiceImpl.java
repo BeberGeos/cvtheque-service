@@ -13,6 +13,7 @@ import fr.neosoft.cvtheque.entities.Utilisateur;
 import fr.neosoft.cvtheque.services.GererUtilisateurService;
 import fr.neosoft.cvtheque.utils.Constantes;
 import fr.neosoft.cvtheque.utils.FonctionnelleException;
+import fr.neosoft.cvtheque.utils.TechniqueException;
 import fr.neosoft.cvtheque.utils.Utils;
 
 /**
@@ -29,21 +30,32 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 
 	public void createUser(final Utilisateur user)
 			throws FonctionnelleException {
+		try {
+			managerDao.connect();
+		} catch (TechniqueException e) {
+			throw new TechniqueException(Constantes.CONNECTION_ERROR, managerDao.toString());
+		}
 		Utilisateur dbUser = userDao.find(user.getId());
 
 		//Check si il existe déjà un client avec les paramètres donnés, si oui on lève une exception
 		if(dbUser != null){
-			throw new FonctionnelleException(Constantes.USER_ALREADY_IN_DB, user.getPrenom() + " " + user.getNom());
+			throw new FonctionnelleException(Constantes.USER_ALREADY_IN_DB, user.getPrenom() + " " + user.getNom()
+					+ " " + user.getDateNaissance());
 		}else{
-			final Utilisateur userToInsert;
-			userToInsert = new Utilisateur();
-			userToInsert.setNom(user.getNom());
-			userToInsert.setPrenom(user.getPrenom());
-			userToInsert.setDateNaissance(user.getDateNaissance());
-
-			Utils.checkConstraints(userToInsert, userToInsert.getPrenom() + " " + userToInsert.getNom() + " " 
-					+ userToInsert.getDateNaissance());
-			userDao.create(userToInsert);
+			if(user.getNom().isEmpty() || user.getPrenom().isEmpty() || user.getDateNaissance() == null){
+				throw new FonctionnelleException(Constantes.FIELD_REQUIRED, user.getPrenom() + " " + user.getNom()
+						+ " " + user.getDateNaissance());
+			}else{
+				Utils.checkConstraints(user, user.getPrenom() + " " + user.getNom() + " " 
+						+ user.getDateNaissance());
+				userDao.create(user);
+			}
+		}
+		
+		try {
+			managerDao.disconnect();
+		} catch (TechniqueException e) {
+			throw new TechniqueException(Constantes.DISCONNECTION_ERROR, managerDao.toString());
 		}
 	}
 
@@ -56,7 +68,7 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 
 			Utils.checkConstraints(userAdresse, userAdresse.getRue() + " " + userAdresse.getCodePostal() + " " 
 					+ userAdresse.getVille());
-			
+
 			/*Vérification si l'adresse est déjà présente en base, si oui on ne l'ajoute pas. 
 			 * Sinon on set l'adresse de l'utilisateur à celle trouvée.
 			 */

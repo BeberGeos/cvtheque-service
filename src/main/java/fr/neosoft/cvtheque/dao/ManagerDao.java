@@ -2,6 +2,8 @@ package fr.neosoft.cvtheque.dao;
 
 import javax.persistence.EntityManager;
 
+import fr.neosoft.cvtheque.utils.TechniqueException;
+
 /**
  * Interface for the manager dao.
  * 
@@ -12,15 +14,15 @@ public interface ManagerDao {
 	
 	/**
 	 * Connect to the database.
-	 * @throws Exception
+	 * @throws TechniqueException
 	 */
-	public void connect() throws Exception;
+	public void connect() throws TechniqueException;
 	
 	/**
 	 * Disconnect from the database.
-	 * @throws Exception
+	 * @throws TechniqueException
 	 */
-	public void disconnect() throws Exception;
+	public void disconnect() throws TechniqueException;
 	
 	/**
 	 * Retrieve the entity manager.
