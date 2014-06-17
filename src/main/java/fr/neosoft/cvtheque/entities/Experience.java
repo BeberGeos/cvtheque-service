@@ -2,6 +2,7 @@ package fr.neosoft.cvtheque.entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -31,13 +32,13 @@ public class Experience implements Serializable {
 	private int id;
 
 	@Column(name="DATE_DEBUT")
-	private Timestamp dateDebut;
+	private Calendar dateDebut;
 
 	@Column(name="DATE_FIN")
-	private Timestamp dateFin;
+	private Calendar dateFin;
 
 	@Column(name="DATE_MODIFICATION")
-	private Timestamp dateModification;
+	private Calendar dateModification;
 
 	@Column(name="DETAIL_EXPERIENCE")
 	private String detailExperience;
@@ -79,27 +80,27 @@ public class Experience implements Serializable {
 		this.id = id;
 	}
 
-	public Timestamp getDateDebut() {
+	public Calendar getDateDebut() {
 		return this.dateDebut;
 	}
 
-	public void setDateDebut(Timestamp dateDebut) {
+	public void setDateDebut(Calendar dateDebut) {
 		this.dateDebut = dateDebut;
 	}
 
-	public Timestamp getDateFin() {
+	public Calendar getDateFin() {
 		return this.dateFin;
 	}
 
-	public void setDateFin(Timestamp dateFin) {
+	public void setDateFin(Calendar dateFin) {
 		this.dateFin = dateFin;
 	}
 
-	public Timestamp getDateModification() {
+	public Calendar getDateModification() {
 		return this.dateModification;
 	}
 
-	public void setDateModification(Timestamp dateModification) {
+	public void setDateModification(Calendar dateModification) {
 		this.dateModification = dateModification;
 	}
 

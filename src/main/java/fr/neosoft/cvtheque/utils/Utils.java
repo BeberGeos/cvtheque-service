@@ -5,6 +5,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
+import fr.neosoft.cvtheque.entities.Utilisateur;
 
 /**
  * Implémentations de méthodes utiles au projet.
@@ -34,7 +42,7 @@ public class Utils {
 
 			calendar.setTime(formatedDate);
 		} catch (ParseException e) {
-			throw new FonctionnelleException(Constantes.DATE_PARSE_ERROR, date);
+			throw new TechniqueException(Constantes.DATE_PARSE_ERROR, date);
 		}
 		return calendar;
 	}
@@ -49,6 +57,21 @@ public class Utils {
 	public static void checkNotNull(final String nomParam, final Object objet)throws FonctionnelleException{
 		if(objet == null){
 			throw new FonctionnelleException(Constantes.OBJECT_NULL, nomParam);
+		}
+	}
+	
+	/**
+	 * Check de la validité des données suivant la validation de l'entité.
+	 * @param object l'object à tester
+	 */
+	public static void checkConstraints(final Object object, final String nomParam)throws FonctionnelleException{
+		ValidatorFactory validFactory = Validation.buildDefaultValidatorFactory();
+		Validator validator = validFactory.getValidator();
+		Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object);
+		
+		//Si il y a violation de contrainte on lève une exception.
+		if(constraintViolations.size() > 0){
+			throw new FonctionnelleException(Constantes.CONSTRAINT_VIOLATION, object.toString());
 		}
 	}
 

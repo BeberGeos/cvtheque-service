@@ -1,19 +1,19 @@
 package fr.neosoft.cvtheque.entities;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.Version;
 import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
-import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Version;
 import javax.validation.constraints.Size;
-
-import java.sql.Timestamp;
-import java.util.List;
 
 
 /**
@@ -34,7 +34,7 @@ public class Adresse implements Serializable {
 	private int codePostal;
 
 	@Column(name="DATE_MODIFICATION")
-	private Timestamp dateModification;
+	private Calendar dateModification;
 
 	@Column(name="RUE")
 	private String rue;
@@ -74,11 +74,11 @@ public class Adresse implements Serializable {
 		this.codePostal = codePostal;
 	}
 
-	public Timestamp getDateModification() {
+	public Calendar getDateModification() {
 		return this.dateModification;
 	}
 
-	public void setDateModification(Timestamp dateModification) {
+	public void setDateModification(Calendar dateModification) {
 		this.dateModification = dateModification;
 	}
 

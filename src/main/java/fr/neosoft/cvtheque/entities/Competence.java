@@ -1,7 +1,7 @@
 package fr.neosoft.cvtheque.entities;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -30,7 +30,7 @@ public class Competence implements Serializable {
 	private int id;
 
 	@Column(name="DATE_MODIFICATION")
-	private Timestamp dateModification;
+	private Calendar dateModification;
 
 	@Column(name="LIBELLE")
 	private String libelle;
@@ -64,11 +64,11 @@ public class Competence implements Serializable {
 		this.id = id;
 	}
 
-	public Timestamp getDateModification() {
+	public Calendar getDateModification() {
 		return this.dateModification;
 	}
 
-	public void setDateModification(Timestamp dateModification) {
+	public void setDateModification(Calendar dateModification) {
 		this.dateModification = dateModification;
 	}
 
