@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
@@ -33,9 +35,11 @@ public class Utilisateur implements Serializable {
 	private int id;
 
 	@Column(name="DATE_MODIFICATION")
+	@Temporal(value = TemporalType.TIMESTAMP)
 	private Calendar dateModification;
 
 	@Column(name="DATE_NAISSANCE")
+	@Temporal(value = TemporalType.TIMESTAMP)
 	@Past
 	private Calendar dateNaissance;
 

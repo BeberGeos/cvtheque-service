@@ -19,7 +19,7 @@ import fr.neosoft.cvtheque.utils.Constantes;
 import fr.neosoft.cvtheque.utils.FonctionnelleException;
 import fr.neosoft.cvtheque.utils.Utils;
 
-public class GereUtilisateurServiceTest {
+public class GererUtilisateurServiceTest {
 	
 	@Mock
 	UtilisateurDao userDaoMock;

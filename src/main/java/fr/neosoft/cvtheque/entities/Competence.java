@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 
@@ -30,6 +32,7 @@ public class Competence implements Serializable {
 	private int id;
 
 	@Column(name="DATE_MODIFICATION")
+	@Temporal(value = TemporalType.TIMESTAMP)
 	private Calendar dateModification;
 
 	@Column(name="LIBELLE")

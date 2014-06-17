@@ -10,7 +10,7 @@ import fr.neosoft.cvtheque.dao.GenericDao;
 
 public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 	
-	@PersistenceContext
+	@PersistenceContext(unitName = "cvtheque-service")
 	protected EntityManager entityManager;
 	
 	private Class<T> type;

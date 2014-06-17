@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 
@@ -31,12 +33,15 @@ public class Experience implements Serializable {
 	private int id;
 
 	@Column(name="DATE_DEBUT")
+	@Temporal(value = TemporalType.TIMESTAMP)
 	private Calendar dateDebut;
 
 	@Column(name="DATE_FIN")
+	@Temporal(value = TemporalType.TIMESTAMP)
 	private Calendar dateFin;
 
 	@Column(name="DATE_MODIFICATION")
+	@Temporal(value = TemporalType.TIMESTAMP)
 	private Calendar dateModification;
 
 	@Column(name="DETAIL_EXPERIENCE")

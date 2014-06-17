@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 
@@ -28,6 +30,7 @@ public class Langage implements Serializable {
 	private int id;
 
 	@Column(name="DATE_MODIFICATION")
+	@Temporal(value = TemporalType.TIMESTAMP)
 	private Calendar dateModification;
 
 	@Column(name="LIBELLE")
