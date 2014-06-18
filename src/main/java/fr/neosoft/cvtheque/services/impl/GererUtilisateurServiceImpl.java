@@ -13,7 +13,6 @@ import fr.neosoft.cvtheque.entities.Utilisateur;
 import fr.neosoft.cvtheque.services.GererUtilisateurService;
 import fr.neosoft.cvtheque.utils.Constantes;
 import fr.neosoft.cvtheque.utils.FonctionnelleException;
-import fr.neosoft.cvtheque.utils.TechniqueException;
 import fr.neosoft.cvtheque.utils.Utils;
 
 /**
@@ -30,11 +29,11 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 
 	public void createUser(final Utilisateur user)
 			throws FonctionnelleException {
-		try {
-			managerDao.connect();
-		} catch (TechniqueException e) {
-			throw new TechniqueException(Constantes.CONNECTION_ERROR, managerDao.toString());
-		}
+//		try {
+//			managerDao.connect();
+//		} catch (TechniqueException e) {
+//			throw new TechniqueException(Constantes.CONNECTION_ERROR, managerDao.toString());
+//		}
 		Utilisateur dbUser = userDao.find(user.getId());
 
 		//Check si il existe déjà un client avec les paramètres donnés, si oui on lève une exception
@@ -52,11 +51,11 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 			}
 		}
 		
-		try {
-			managerDao.disconnect();
-		} catch (TechniqueException e) {
-			throw new TechniqueException(Constantes.DISCONNECTION_ERROR, managerDao.toString());
-		}
+//		try {
+//			managerDao.disconnect();
+//		} catch (TechniqueException e) {
+//			throw new TechniqueException(Constantes.DISCONNECTION_ERROR, managerDao.toString());
+//		}
 	}
 
 	public void updateProfil(Utilisateur user) throws FonctionnelleException {
@@ -88,29 +87,46 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 	}
 
 	public void updateSkill(Utilisateur user, Experience experience) throws FonctionnelleException {
-		//TODO A finir
 		List<Experience> userExperiences = user.getExperiences();
-		if(userExperiences.contains(experience)){
-
+		if(experience.getClient() != null && experience.getCompetences().size() > 0 && experience.getDateDebut() != null){
+			if(userExperiences.contains(experience)){
+				experienceDao.update(experience);
+			}else{
+				experienceDao.create(experience);
+				userExperiences.add(experience);
+				userDao.update(user);
+			}
+		}else{
+			throw new FonctionnelleException(Constantes.EXPERIENCE_NOT_COMPLETE, experience.toString());
 		}
 
 	}
 
-	public Utilisateur searchUsers(String lastName, String firstName,
+	public List<Utilisateur> searchUsers(String lastName, String firstName,
 			String birthDate) throws FonctionnelleException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Utilisateur> listUtilisateurs = userDao.findUsers(lastName, firstName, birthDate);
+		if(listUtilisateurs.isEmpty()){
+			throw new FonctionnelleException(Constantes.NO_USER_FOUND, firstName + " " + lastName + " " + birthDate);
+		}
+		return listUtilisateurs;
 	}
 
 	public List<Utilisateur> searchUsersByClient(Long idClient)
 			throws FonctionnelleException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Utilisateur> listUtilisateurs = userDao.findUsersByClient(idClient);
+		if(listUtilisateurs.isEmpty()){
+			throw new FonctionnelleException(Constantes.NO_USER_FOUND, String.valueOf(idClient));
+		}
+		return listUtilisateurs;
 	}
 
 	public Utilisateur searchUser(Long idUser) throws FonctionnelleException {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			Utilisateur user = userDao.find(idUser);
+			return user;
+		}catch(NullPointerException e){
+			throw new FonctionnelleException(Constantes.NO_USER_FOUND, String.valueOf(idUser));
+		}
 	}
 
 }

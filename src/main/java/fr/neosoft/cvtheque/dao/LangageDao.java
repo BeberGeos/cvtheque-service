@@ -16,4 +16,10 @@ public interface LangageDao extends GenericDao<Langage>{
 	 * @return List<Langage> the list of all the "langage"
 	 */
 	public List<Langage> findAllLangages();
+	/**
+	 * Recherche un langage suivant son libellé.
+	 * @param libelle le libellé du langage recherché
+	 * @return Langage le langage trouvé
+	 */
+	public Langage findLanguageByName(final String libelle);
 }

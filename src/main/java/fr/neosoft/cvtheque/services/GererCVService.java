@@ -1,5 +1,7 @@
 package fr.neosoft.cvtheque.services;
 
+import java.util.List;
+
 import fr.neosoft.cvtheque.entities.Utilisateur;
 import fr.neosoft.cvtheque.utils.FonctionnelleException;
 import fr.neosoft.cvtheque.utils.TypeDocument;
@@ -21,7 +23,7 @@ public interface GererCVService {
 	 * @return Utilisateur l'utilisateur trouvé
 	 * @throws FonctionnelleException
 	 */
-	public Utilisateur searchUserByLangageOrCategory(final Long idLangage, final Long idCategory)throws FonctionnelleException;
+	public List<Utilisateur> searchUserByLanguageOrCategory(final Long idLangage, final Long idCategory)throws FonctionnelleException;
 	
 	/**
 	 * Cette méthode va permettre de créer un fichier CV pour un utilisateur. 

@@ -16,5 +16,8 @@ public class Constantes {
 	public static final String FIELD_REQUIRED = "Champ requis non renseigné.";
 	public static final String CONNECTION_ERROR = "Erreur lors de la connexion à la base de données.";
 	public static final String DISCONNECTION_ERROR = "Erreur lors de la déconnexion à la base de données.";
+	public static final String EXPERIENCE_NOT_COMPLETE = "Certains champs requis de l'expérience ne sont pas complets.";
+	public static final String NO_USER_FOUND = "Aucun utilisateur trouvé.";
+	public static final String LANGUAGE_ALREADY_IN_DB = "Le langage est déjà présent en base de données.";
 
 }

@@ -34,4 +34,24 @@ public class UtilisateurDaoImpl extends GenericDaoImpl<Utilisateur> implements U
 		List<Utilisateur> users = query.getResultList();
 		return users;
 	}
+
+	public List<Utilisateur> findUsersByClient(final Long idClient) {
+		String jpql = "SELECT u FROM Utilisateur u JOIN u.adresse adr WHERE adr IN (SELECT c FROM Client c JOIN adr WHERE c.client.id = :idClient)";
+		Query query = entityManager.createQuery(jpql);
+		query.setParameter("idClient", idClient);
+		
+		List<Utilisateur> users = query.getResultList();
+		return users;
+	}
+
+	public List<Utilisateur> findUserByLanguageOrCategory(Long idLangage,
+			Long idCategory) {
+		String jpql = "SELECT u FROM Utilisateur u JOIN u.experiences exp JOIN exp.competences comp WHERE comp.categorie.id = :idCategory AND comp.langage.id = :idLanguage";
+		Query query = entityManager.createQuery(jpql);
+		query.setParameter("idCategory", idCategory);
+		query.setParameter("idLanguage", idLangage);
+		
+		List<Utilisateur> users = query.getResultList();
+		return users;
+	}
 }

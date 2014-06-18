@@ -24,4 +24,20 @@ public interface UtilisateurDao extends GenericDao<Utilisateur>{
 	 * @param birthDate date de naissance de l'utilisateur
 	 */
 	public List<Utilisateur> findUsers(final String lastName, final String firstName, final String birthDate);
+	/**
+	 * Trouve des utilisateurs suivant un client donné.
+	 * 
+	 * @param idClient l'id du client à qui appartiennent les utilisateurs recherchés
+	 * @return List<Utilisateur> la liste des utilisateurs trouvés
+	 */
+	public List<Utilisateur> findUsersByClient(final Long idClient);
+	/**
+	 * Trouve un utilisateur suivant
+	 * 
+	 * @param idLangage
+	 * @param idCategory
+	 * @return
+	 */
+	public List<Utilisateur> findUserByLanguageOrCategory(final Long idLangage,
+			final Long idCategory);
 }

@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+import javax.validation.constraints.Size;
 
 
 /**
@@ -34,6 +35,7 @@ public class Langage implements Serializable {
 	private Calendar dateModification;
 
 	@Column(name="LIBELLE")
+	@Size(max=20)
 	private String libelle;
 
 	@Version

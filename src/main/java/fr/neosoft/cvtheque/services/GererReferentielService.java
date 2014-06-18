@@ -15,7 +15,7 @@ import fr.neosoft.cvtheque.utils.FonctionnelleException;
  */
 public interface GererReferentielService {
 	/**
-	 * Ccette méthode va permettre de créer un client dans l’application. 
+	 * Cette méthode va permettre de créer un client dans l’application. 
 	 * Ce client devra comporter un nom, un SIRET et une adresse. 
 	 * La validation de l’adresse sera sur les champs obligatoires de rue, code postal et ville. 
 	 * La validation du SIRET sera effectuée sur un nombre max de caractères (14).

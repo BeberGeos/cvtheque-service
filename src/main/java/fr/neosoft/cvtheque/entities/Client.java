@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+import javax.validation.constraints.Size;
 
 
 /**
@@ -39,6 +40,7 @@ public class Client implements Serializable {
 	private String nom;
 
 	@Column(name="SIRET")
+	@Size(max=14)
 	private int siret;
 
 	@Version

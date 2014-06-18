@@ -57,7 +57,7 @@ public interface GererUtilisateurService {
 	 * @return Utilisateur l'utilisateur trouvé
 	 * @throws FonctionnelleException
 	 */
-	public Utilisateur searchUsers(final String lastName, final String firstName, final String birthDate)throws FonctionnelleException;
+	public List<Utilisateur> searchUsers(final String lastName, final String firstName, final String birthDate)throws FonctionnelleException;
 	/**
 	 * Cette méthode va retourner une liste d’utilisateurs pour les paramètres donnés.
 	 * 
