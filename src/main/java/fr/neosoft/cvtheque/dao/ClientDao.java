@@ -16,4 +16,11 @@ public interface ClientDao extends GenericDao<Client>{
 	 * @return List<Client> the list of all the "client"
 	 */
 	public List<Client> findAllClients();
+
+	/**
+	 * Cherche un client suivant son numéro SIRET.
+	 * @param siret le numéro SIRET du client
+	 * @return Client le client trouvé
+	 */
+	public Client findClientBySiret(final Long siret);
 }

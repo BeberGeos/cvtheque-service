@@ -49,7 +49,7 @@ public interface GererReferentielService {
 	 */
 	public void updateLangage(Langage langage)throws FonctionnelleException;
 	/**
-	 * cette méthode va permettre la création d’une catégorie. 
+	 * Cette méthode va permettre la création d’une catégorie. 
 	 * Le libellé de la catégorie sera limité à 20 caractères et devra être unique en base de données.
 	 * 
 	 * @param categorie la categorie à créer
@@ -57,7 +57,7 @@ public interface GererReferentielService {
 	 */
 	public void createCategory(final Categorie categorie)throws FonctionnelleException;
 	/**
-	 * cette méthode va permettre de modifier une catégorie dans l’application. 
+	 * Cette méthode va permettre de modifier une catégorie dans l’application. 
 	 * Les contrôles seront identiques à la création. 
 	 * 
 	 * @param categorie la categorie à modifier

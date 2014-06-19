@@ -19,5 +19,9 @@ public class Constantes {
 	public static final String EXPERIENCE_NOT_COMPLETE = "Certains champs requis de l'expérience ne sont pas complets.";
 	public static final String NO_USER_FOUND = "Aucun utilisateur trouvé.";
 	public static final String LANGUAGE_ALREADY_IN_DB = "Le langage est déjà présent en base de données.";
+	public static final String CATEGORY_ALREADY_IN_DB = "La catégorie est déjà présente en base de données.";
+	public static final String NO_CLIENT_FOUND = "Aucun client ne correspond à ce SIRET.";
+	public static final String NO_LANGUAGE_FOUND = "Aucun langage ne correspond à cet identifiant.";
+	public static final String NO_CATEGORY_FOUND = "Aucune catégorie trouvée.";
 
 }
