@@ -29,11 +29,6 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 
 	public void createUser(final Utilisateur user)
 			throws FonctionnelleException {
-//		try {
-//			managerDao.connect();
-//		} catch (TechniqueException e) {
-//			throw new TechniqueException(Constantes.CONNECTION_ERROR, managerDao.toString());
-//		}
 		Utilisateur dbUser = userDao.find(user.getId());
 
 		//Check si il existe déjà un client avec les paramètres donnés, si oui on lève une exception
@@ -50,12 +45,6 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 				userDao.create(user);
 			}
 		}
-		
-//		try {
-//			managerDao.disconnect();
-//		} catch (TechniqueException e) {
-//			throw new TechniqueException(Constantes.DISCONNECTION_ERROR, managerDao.toString());
-//		}
 	}
 
 	public void updateProfil(Utilisateur user) throws FonctionnelleException {
