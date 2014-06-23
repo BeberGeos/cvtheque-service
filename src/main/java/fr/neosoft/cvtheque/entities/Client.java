@@ -41,7 +41,7 @@ public class Client implements Serializable {
 
 	@Column(name="SIRET")
 	@Size(max=14)
-	private int siret;
+	private Long siret;
 
 	@Version
 	@Column(name="VERSION")
@@ -83,11 +83,11 @@ public class Client implements Serializable {
 		this.nom = nom;
 	}
 
-	public int getSiret() {
+	public Long getSiret() {
 		return this.siret;
 	}
 
-	public void setSiret(int siret) {
+	public void setSiret(Long siret) {
 		this.siret = siret;
 	}
 
@@ -134,7 +134,7 @@ public class Client implements Serializable {
 				+ ((experiences == null) ? 0 : experiences.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
-		result = prime * result + siret;
+		result = prime * result + ((siret == null) ? 0 : siret.hashCode());
 		result = prime * result + version;
 		return result;
 	}
@@ -170,11 +170,15 @@ public class Client implements Serializable {
 				return false;
 		} else if (!nom.equals(other.nom))
 			return false;
-		if (siret != other.siret)
+		if (siret == null) {
+			if (other.siret != null)
+				return false;
+		} else if (!siret.equals(other.siret))
 			return false;
 		if (version != other.version)
 			return false;
 		return true;
 	}
+
 	
 }
