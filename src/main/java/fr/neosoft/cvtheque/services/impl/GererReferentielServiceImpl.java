@@ -118,8 +118,8 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 
 	public List<Langage> searchListLangage(final String libelle)
 			throws FonctionnelleException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Langage> languages = languageDao.findLanguagesByName(libelle);
+		return languages;
 	}
 
 	public List<Categorie> searchListCategory() throws FonctionnelleException {

@@ -57,7 +57,7 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 			Utils.checkConstraints(userAdresse, userAdresse.getRue() + " " + userAdresse.getCodePostal() + " " 
 					+ userAdresse.getVille());
 
-			/*Vérification si l'adresse est déjà présente en base, si oui on ne l'ajoute pas. 
+			/* Vérification si l'adresse est déjà présente en base, si oui on ne l'ajoute pas. 
 			 * Sinon on set l'adresse de l'utilisateur à celle trouvée.
 			 */
 			Adresse dbAdresse = adresseDao.find(userAdresse.getId());
@@ -67,12 +67,7 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 				user.setAdresse(dbAdresse);
 			}
 			userDao.update(user);
-		}/* 
-		else if(userAdresse != null && userAdresse.getRue().isEmpty() && userAdresse.getCodePostal() == 0 
-				&& userAdresse.getVille().isEmpty()){
-
 		}
-		 */
 	}
 
 	public void updateSkill(Utilisateur user, Experience experience) throws FonctionnelleException {

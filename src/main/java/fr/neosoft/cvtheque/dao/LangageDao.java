@@ -22,4 +22,10 @@ public interface LangageDao extends GenericDao<Langage>{
 	 * @return Langage le langage trouvé
 	 */
 	public Langage findLanguageByName(final String libelle);
+	/**
+	 * Recherche une liste de langages contenant le libellé en paramètre.
+	 * @param libelle le libelle du langage
+	 * @return List<Langage> la liste des langages contenant le libellé
+	 */
+	public List<Langage> findLanguagesByName(final String libelle);
 }

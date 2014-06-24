@@ -33,4 +33,10 @@ public class LangageDaoImpl extends GenericDaoImpl<Langage> implements LangageDa
 		return langage;
 	}
 
+	@Override
+	public List<Langage> findLanguagesByName(String libelle) {
+		List<Langage> listLangages = this.entityManager.createNamedQuery("Langage.findByName").getResultList();
+		return listLangages;
+	}
+
 }

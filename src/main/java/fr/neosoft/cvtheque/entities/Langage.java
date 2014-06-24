@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -22,7 +23,10 @@ import javax.validation.constraints.Size;
  * 
  */
 @Entity
-@NamedQuery(name="Langage.findAll", query="SELECT l FROM Langage l")
+@NamedQueries({
+	@NamedQuery(name="Langage.findAll", query="SELECT l FROM Langage l"),
+	@NamedQuery(name="Langage.findByName", query="SELECT l FROM Langage l WHERE l.libelle LIKE '%:libelle%'")
+})
 public class Langage implements Serializable {
 	private static final long serialVersionUID = 1L;
 
