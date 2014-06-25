@@ -23,5 +23,6 @@ public class Constantes {
 	public static final String NO_CLIENT_FOUND = "Aucun client ne correspond à ce SIRET.";
 	public static final String NO_LANGUAGE_FOUND = "Aucun langage ne correspond à cet identifiant.";
 	public static final String NO_CATEGORY_FOUND = "Aucune catégorie trouvée.";
+	public static final String CLIENT_ALREADY_IN_DB = "Le client est déjà en base de données.";
 
 }

@@ -80,7 +80,7 @@ public interface GererReferentielService {
 	 * @return Langage le langage trouvé
 	 * @throws FonctionnelleException
 	 */
-	public Langage searchlangage(final Long idLangage)throws FonctionnelleException;
+	public Langage searchLangage(final Long idLangage)throws FonctionnelleException;
 	/**
 	 * Cette méthode va retourner une liste de langage.
 	 * 

@@ -113,4 +113,28 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 		}
 	}
 
+	public UtilisateurDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(UtilisateurDao userDao) {
+		this.userDao = userDao;
+	}
+
+	public AdresseDao getAdresseDao() {
+		return adresseDao;
+	}
+
+	public void setAdresseDao(AdresseDao adresseDao) {
+		this.adresseDao = adresseDao;
+	}
+
+	public ExperienceDao getExperienceDao() {
+		return experienceDao;
+	}
+
+	public void setExperienceDao(ExperienceDao experienceDao) {
+		this.experienceDao = experienceDao;
+	}
+
 }

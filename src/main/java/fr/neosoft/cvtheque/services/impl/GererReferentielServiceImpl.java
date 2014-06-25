@@ -29,14 +29,20 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 	private CategorieDao categoryDao = managerDao.getDaoCategorie();
 
 	public void createClient(final Client client) throws FonctionnelleException {
-		Adresse clientAdresse = client.getAdresse();
-		if(!client.getNom().isEmpty() && client.getSiret() != 0 && clientAdresse.getCodePostal() != 0 
-				&& !clientAdresse.getRue().isEmpty() && !clientAdresse.getVille().isEmpty()){
-			Utils.checkConstraints(client, client.toString());
-			Utils.checkConstraints(clientAdresse, clientAdresse.toString());
-			clientDao.create(client);
+		Client dbClient = clientDao.find(client.getId());
+
+		if(dbClient != null){
+			throw new FonctionnelleException(Constantes.CLIENT_ALREADY_IN_DB, client.toString());
 		}else{
-			throw new FonctionnelleException(Constantes.FIELD_REQUIRED, client.toString());
+			Adresse clientAdresse = client.getAdresse();
+			if(!client.getNom().isEmpty() && client.getSiret() != 0 && clientAdresse.getCodePostal() != 0 
+					&& !clientAdresse.getRue().isEmpty() && !clientAdresse.getVille().isEmpty()){
+				Utils.checkConstraints(client, client.toString());
+				Utils.checkConstraints(clientAdresse, clientAdresse.toString());
+				clientDao.create(client);
+			}else{
+				throw new FonctionnelleException(Constantes.FIELD_REQUIRED, client.toString());
+			}
 		}
 	}
 
@@ -54,7 +60,7 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 
 	public void createLangage(final Langage langage) throws FonctionnelleException {
 		Langage dbLanguage = languageDao.findLanguageByName(langage.getLibelle());
-		
+
 		if(dbLanguage != null){
 			throw new FonctionnelleException(Constantes.LANGUAGE_ALREADY_IN_DB, langage.toString());
 		}else{
@@ -65,7 +71,7 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 
 	public void updateLangage(Langage langage) throws FonctionnelleException {
 		Langage dbLanguage = languageDao.findLanguageByName(langage.getLibelle());
-		
+
 		if(dbLanguage != null){
 			throw new FonctionnelleException(Constantes.LANGUAGE_ALREADY_IN_DB, langage.toString());
 		}else{
@@ -77,7 +83,7 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 	public void createCategory(final Categorie categorie)
 			throws FonctionnelleException {
 		Categorie dbCategorie = categoryDao.findCategoryByName(categorie.getLibelle());
-		
+
 		if(dbCategorie != null){
 			throw new FonctionnelleException(Constantes.CATEGORY_ALREADY_IN_DB, categorie.toString());
 		}else{
@@ -89,7 +95,7 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 	public void updateCategory(Categorie categorie)
 			throws FonctionnelleException {
 		Categorie dbCategorie = categoryDao.findCategoryByName(categorie.getLibelle());
-		
+
 		if(dbCategorie != null){
 			throw new FonctionnelleException(Constantes.CATEGORY_ALREADY_IN_DB, categorie.toString());
 		}else{
@@ -100,16 +106,16 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 
 	public Client searchClient(final Long siret) throws FonctionnelleException {
 		Client client = clientDao.findClientBySiret(siret);
-		
+
 		if(client == null){
 			throw new FonctionnelleException(Constantes.NO_CLIENT_FOUND, String.valueOf(siret));
 		}
 		return client;
 	}
 
-	public Langage searchlangage(final Long idLangage) throws FonctionnelleException {
+	public Langage searchLangage(final Long idLangage) throws FonctionnelleException {
 		Langage langage = languageDao.find(idLangage);
-		
+
 		if(langage == null){
 			throw new FonctionnelleException(Constantes.NO_LANGUAGE_FOUND, String.valueOf(idLangage));
 		}
@@ -124,11 +130,35 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 
 	public List<Categorie> searchListCategory() throws FonctionnelleException {
 		List<Categorie> categories = categoryDao.findAllCategories();
-		
+
 		if(categories.size() == 0){
 			throw new FonctionnelleException(Constantes.NO_CATEGORY_FOUND, "");
 		}
 		return categories;
+	}
+
+	public ClientDao getClientDao() {
+		return clientDao;
+	}
+
+	public void setClientDao(ClientDao clientDao) {
+		this.clientDao = clientDao;
+	}
+
+	public LangageDao getLanguageDao() {
+		return languageDao;
+	}
+
+	public void setLanguageDao(LangageDao languageDao) {
+		this.languageDao = languageDao;
+	}
+
+	public CategorieDao getCategoryDao() {
+		return categoryDao;
+	}
+
+	public void setCategoryDao(CategorieDao categoryDao) {
+		this.categoryDao = categoryDao;
 	}
 
 }

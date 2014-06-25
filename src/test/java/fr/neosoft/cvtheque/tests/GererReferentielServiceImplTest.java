@@ -1,10 +1,14 @@
 package fr.neosoft.cvtheque.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import fr.neosoft.cvtheque.dao.CategorieDao;
@@ -14,20 +18,22 @@ import fr.neosoft.cvtheque.entities.Adresse;
 import fr.neosoft.cvtheque.entities.Categorie;
 import fr.neosoft.cvtheque.entities.Client;
 import fr.neosoft.cvtheque.entities.Langage;
-import fr.neosoft.cvtheque.services.GererReferentielService;
 import fr.neosoft.cvtheque.services.impl.GererReferentielServiceImpl;
 import fr.neosoft.cvtheque.utils.FonctionnelleException;
 
 public class GererReferentielServiceImplTest {
 	
 	@Mock
-	ClientDao clientDao;
+	private ClientDao clientDaoMock;
 	
 	@Mock
-	LangageDao langageDao;
+	private LangageDao langageDaoMock;
 	
 	@Mock
-	CategorieDao categorieDao;
+	private CategorieDao categorieDaoMock;
+	
+	@Mock
+	private GererReferentielServiceImpl refService;
 
 	@Before
 	public void setUp() throws Exception {
@@ -36,6 +42,10 @@ public class GererReferentielServiceImplTest {
 
 	@Test
 	public void testCreateClient() {
+		Mockito.doCallRealMethod().when(refService).createClient(Mockito.any());
+		Mockito.when(refService.getClientDao()).thenReturn(clientDaoMock);
+		Mockito.when(clientDaoMock.find(0)).thenReturn(null);
+		
 		Client clt = new Client();
 		clt.setNom("Client");
 		clt.setSiret(12345678912345L);
@@ -46,7 +56,6 @@ public class GererReferentielServiceImplTest {
 		adr.setVille("TestVillePleaseIgnore");
 		
 		clt.setAdresse(adr);
-		GererReferentielService refService = new GererReferentielServiceImpl(); 
 		try{
 			refService.createClient(clt);
 		}catch(FonctionnelleException e){
@@ -56,6 +65,9 @@ public class GererReferentielServiceImplTest {
 
 	@Test
 	public void testUpdateClient() {
+		Mockito.doCallRealMethod().when(refService).updateClient(Mockito.any());
+		Mockito.when(refService.getClientDao()).thenReturn(clientDaoMock);
+		
 		Client clt = new Client();
 		clt.setNom("Client");
 		clt.setSiret(12345678912345L);
@@ -66,7 +78,6 @@ public class GererReferentielServiceImplTest {
 		adr.setVille("TestVillePleaseIgnore");
 		
 		clt.setAdresse(adr);
-		GererReferentielService refService = new GererReferentielServiceImpl(); 
 		refService.createClient(clt);
 		try{
 			refService.updateClient(clt);
@@ -77,10 +88,13 @@ public class GererReferentielServiceImplTest {
 
 	@Test
 	public void testCreateLangage() {
+		Mockito.doCallRealMethod().when(refService).createLangage(Mockito.any());
+		Mockito.when(refService.getLanguageDao()).thenReturn(langageDaoMock);
+		Mockito.when(langageDaoMock.findLanguageByName(Mockito.any())).thenReturn(null);
+		
 		Langage langage = new Langage();
 		langage.setLibelle("Java");
 		
-		GererReferentielService refService = new GererReferentielServiceImpl();
 		try{
 			refService.createLangage(langage);
 		}catch(FonctionnelleException e){
@@ -90,10 +104,13 @@ public class GererReferentielServiceImplTest {
 
 	@Test
 	public void testUpdateLangage() {
+		Mockito.doCallRealMethod().when(refService).updateLangage(Mockito.any());
+		Mockito.when(refService.getLanguageDao()).thenReturn(langageDaoMock);
+		Mockito.when(langageDaoMock.findLanguageByName(Mockito.any())).thenReturn(null);
+		
 		Langage langage = new Langage();
 		langage.setLibelle("Java");
 		
-		GererReferentielService refService = new GererReferentielServiceImpl();
 		refService.createLangage(langage);
 		try{
 			langage.setLibelle("TestJava");
@@ -105,10 +122,13 @@ public class GererReferentielServiceImplTest {
 
 	@Test
 	public void testCreateCategory() {
+		Mockito.doCallRealMethod().when(refService).createCategory(Mockito.any());
+		Mockito.when(refService.getCategoryDao()).thenReturn(categorieDaoMock);
+		Mockito.when(categorieDaoMock.find(Mockito.any())).thenReturn(null);
+		
 		Categorie categ = new Categorie();
 		categ.setLibelle("Programmation");
 		
-		GererReferentielService refService = new GererReferentielServiceImpl();
 		try{
 			refService.createCategory(categ);
 		}catch(FonctionnelleException e){
@@ -118,10 +138,13 @@ public class GererReferentielServiceImplTest {
 
 	@Test
 	public void testUpdateCategory() {
+		Mockito.doCallRealMethod().when(refService).updateCategory(Mockito.any());
+		Mockito.when(refService.getCategoryDao()).thenReturn(categorieDaoMock);
+		Mockito.when(categorieDaoMock.findCategoryByName(Mockito.any())).thenReturn(null);
+		
 		Categorie categ = new Categorie();
 		categ.setLibelle("Programmation");
 		
-		GererReferentielService refService = new GererReferentielServiceImpl();
 		refService.createCategory(categ);
 		try{
 			categ.setLibelle("TestProgrammation");
@@ -133,22 +156,58 @@ public class GererReferentielServiceImplTest {
 
 	@Test
 	public void testSearchClient() {
-		fail("Not yet implemented");
+		Mockito.doCallRealMethod().when(refService).searchClient(Mockito.any());
+		Mockito.when(refService.getClientDao()).thenReturn(clientDaoMock);
+		Mockito.when(clientDaoMock.find(0L)).thenReturn(new Client());
+		
+		try{
+			Client client = refService.searchClient(0L);
+			assertNotNull(client);
+		}catch(FonctionnelleException e){
+			fail("Ne doit pas lever d'exception.");
+		}
 	}
 
 	@Test
 	public void testSearchlangage() {
-		fail("Not yet implemented");
+		Mockito.doCallRealMethod().when(refService).searchLangage(Mockito.any());
+		Mockito.when(refService.getLanguageDao()).thenReturn(langageDaoMock);
+		Mockito.when(langageDaoMock.find(0L)).thenReturn(new Langage());
+		
+		try{
+			Langage client = refService.searchLangage(0L);
+			assertNotNull(client);
+		}catch(FonctionnelleException e){
+			fail("Ne doit pas lever d'exception.");
+		}
 	}
 
 	@Test
 	public void testSearchListLangage() {
-		fail("Not yet implemented");
+		Mockito.doCallRealMethod().when(refService).searchClient(Mockito.any());
+		Mockito.when(refService.getLanguageDao()).thenReturn(langageDaoMock);
+		Mockito.when(langageDaoMock.findLanguagesByName(Mockito.any())).thenReturn(Mockito.anyListOf(Langage.class));
+		
+		try{
+			List<Langage> languages = refService.searchListLangage("Java");
+			assertNotNull(languages);
+		}catch(FonctionnelleException e){
+			fail("Ne doit pas lever d'exception.");
+		}
 	}
 
 	@Test
 	public void testSearchListCategory() {
-		fail("Not yet implemented");
+		Mockito.doCallRealMethod().when(refService).searchClient(Mockito.any());
+		Mockito.when(refService.getCategoryDao()).thenReturn(categorieDaoMock);
+		Mockito.when(categorieDaoMock.findAllCategories()).thenReturn(Mockito.anyListOf(Categorie.class));
+		
+		try{
+			List<Categorie> categories = refService.searchListCategory();
+			assertNotNull(categories);
+		}catch(FonctionnelleException e){
+			fail("Ne doit pas lever d'exception.");
+		}
 	}
 
 }

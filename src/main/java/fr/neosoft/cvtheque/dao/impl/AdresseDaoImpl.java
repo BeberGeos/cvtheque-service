@@ -2,6 +2,7 @@ package fr.neosoft.cvtheque.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import fr.neosoft.cvtheque.dao.AdresseDao;
@@ -15,19 +16,20 @@ import fr.neosoft.cvtheque.entities.Adresse;
  */
 public class AdresseDaoImpl extends GenericDaoImpl<Adresse> implements AdresseDao {
 	
-	public AdresseDaoImpl(ManagerDaoImpl managerDao) {
+	public AdresseDaoImpl(EntityManager entityManager) {
 		super();
+		setEntityManager(entityManager);
 	}
 	
 	public List<Adresse> findAllAdresses(){
-		List<Adresse> listAdresses = this.entityManager.createNamedQuery("Adresse.findAll").getResultList();
+		final List<Adresse> listAdresses = getEntityManager().createNamedQuery("Adresse.findAll").getResultList();
 		
 		return listAdresses;
 	}
 
 	public List<Adresse> findAdresses(final String rue, final String ville, final int codePostal) {
 		String jpql = "SELECT a FROM Adresse a WHERE a.adresse.rue = :rue AND a.adresse.ville = :ville AND a.adresse.codePostal = :codePostal";
-		Query query = entityManager.createQuery(jpql);
+		Query query = getEntityManager().createQuery(jpql);
 		query.setParameter("rue", rue);
 		query.setParameter("ville", ville);
 		query.setParameter("codePostal", codePostal);

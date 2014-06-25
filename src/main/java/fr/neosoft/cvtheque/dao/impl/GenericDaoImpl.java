@@ -11,7 +11,7 @@ import fr.neosoft.cvtheque.dao.GenericDao;
 public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 	
 	@PersistenceContext(unitName = "cvtheque-service")
-	protected EntityManager entityManager;
+	private EntityManager entityManager;
 	
 	private Class<T> type;
 	
@@ -31,11 +31,19 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 	}
 
 	public T find(Object id) {
-		return (T) this.entityManager.find(type, id);
+		return (T) getEntityManager().find(type, id);
 	}
 
 	public T update(T t) {
 		return this.entityManager.merge(t);
 	}
 
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+	
 }
