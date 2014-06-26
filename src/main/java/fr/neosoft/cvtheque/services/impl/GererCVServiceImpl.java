@@ -2,9 +2,7 @@ package fr.neosoft.cvtheque.services.impl;
 
 import java.util.List;
 
-import fr.neosoft.cvtheque.dao.ManagerDao;
 import fr.neosoft.cvtheque.dao.UtilisateurDao;
-import fr.neosoft.cvtheque.dao.impl.ManagerDaoImpl;
 import fr.neosoft.cvtheque.entities.Utilisateur;
 import fr.neosoft.cvtheque.services.GererCVService;
 import fr.neosoft.cvtheque.utils.Constantes;
@@ -18,8 +16,7 @@ import fr.neosoft.cvtheque.utils.TypeDocument;
  *
  */
 public class GererCVServiceImpl implements GererCVService {
-	private ManagerDao managerDao = new ManagerDaoImpl();
-	private UtilisateurDao userDao = managerDao.getDaoUtilisateur();
+	private UtilisateurDao userDao;
 
 	public List<Utilisateur> searchUserByLanguageOrCategory(final Long idLangage, final
 			Long idCategory) throws FonctionnelleException {
@@ -41,6 +38,10 @@ public class GererCVServiceImpl implements GererCVService {
 			throw new FonctionnelleException(Constantes.FIELD_REQUIRED, String.valueOf(idUser));
 		}
 		//TODO Creation du fichier CV
+	}
+
+	public UtilisateurDao getUserDao() {
+		return userDao;
 	}
 
 }

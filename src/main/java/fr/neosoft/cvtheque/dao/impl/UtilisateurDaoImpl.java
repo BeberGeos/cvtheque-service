@@ -22,18 +22,18 @@ public class UtilisateurDaoImpl extends GenericDaoImpl<Utilisateur> implements U
 	}
 
 	public List<Utilisateur> findAllUtilisateurs() {
-		List<Utilisateur> listUtilisateurs = getEntityManager().createNamedQuery("Utilisateur.findAll").getResultList();
+		final List<Utilisateur> listUtilisateurs = getEntityManager().createNamedQuery("Utilisateur.findAll").getResultList();
 		return listUtilisateurs;
 	}
 
 	public List<Utilisateur> findUsers(final String lastName, final String firstName, final String birthDate) {
-		String jpql = "SELECT u FROM Utilisateur u WHERE u.utilisateur.nom = :lastName AND u.utilisateur.prenom = :firstName AND u.utilisateur.dateNaissance = :birthDate";
+		final String jpql = "SELECT u FROM Utilisateur u WHERE u.utilisateur.nom = :lastName AND u.utilisateur.prenom = :firstName AND u.utilisateur.dateNaissance = :birthDate";
 		Query query = getEntityManager().createQuery(jpql);
 		query.setParameter("lastName", lastName);
 		query.setParameter("firstName", firstName);
 		query.setParameter("birthDate", birthDate);
 		
-		List<Utilisateur> users = query.getResultList();
+		final List<Utilisateur> users = query.getResultList();
 		return users;
 	}
 

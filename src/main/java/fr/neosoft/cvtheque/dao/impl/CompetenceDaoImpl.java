@@ -2,6 +2,8 @@ package fr.neosoft.cvtheque.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import fr.neosoft.cvtheque.dao.CompetenceDao;
 import fr.neosoft.cvtheque.entities.Competence;
 
@@ -13,12 +15,13 @@ import fr.neosoft.cvtheque.entities.Competence;
  */
 public class CompetenceDaoImpl extends GenericDaoImpl<Competence> implements CompetenceDao {
 
-	public CompetenceDaoImpl(ManagerDaoImpl managerDao) {
+	public CompetenceDaoImpl(EntityManager entityManager) {
 		super();
+		setEntityManager(entityManager);
 	}
 
 	public List<Competence> findAllCompetences() {
-		List<Competence> listCompetences = this.entityManager.createNamedQuery("Competence.findAll").getResultList();
+		final List<Competence> listCompetences = getEntityManager().createNamedQuery("Competence.findAll").getResultList();
 		return listCompetences;
 	}
 

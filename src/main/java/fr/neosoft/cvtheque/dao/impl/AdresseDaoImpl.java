@@ -28,13 +28,13 @@ public class AdresseDaoImpl extends GenericDaoImpl<Adresse> implements AdresseDa
 	}
 
 	public List<Adresse> findAdresses(final String rue, final String ville, final int codePostal) {
-		String jpql = "SELECT a FROM Adresse a WHERE a.adresse.rue = :rue AND a.adresse.ville = :ville AND a.adresse.codePostal = :codePostal";
+		final String jpql = "SELECT a FROM Adresse a WHERE a.adresse.rue = :rue AND a.adresse.ville = :ville AND a.adresse.codePostal = :codePostal";
 		Query query = getEntityManager().createQuery(jpql);
 		query.setParameter("rue", rue);
 		query.setParameter("ville", ville);
 		query.setParameter("codePostal", codePostal);
 		
-		List<Adresse> adresses = query.getResultList();
+		final List<Adresse> adresses = query.getResultList();
 		return adresses;
 	}
 

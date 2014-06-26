@@ -4,9 +4,7 @@ import java.util.List;
 
 import fr.neosoft.cvtheque.dao.AdresseDao;
 import fr.neosoft.cvtheque.dao.ExperienceDao;
-import fr.neosoft.cvtheque.dao.ManagerDao;
 import fr.neosoft.cvtheque.dao.UtilisateurDao;
-import fr.neosoft.cvtheque.dao.impl.ManagerDaoImpl;
 import fr.neosoft.cvtheque.entities.Adresse;
 import fr.neosoft.cvtheque.entities.Experience;
 import fr.neosoft.cvtheque.entities.Utilisateur;
@@ -22,14 +20,13 @@ import fr.neosoft.cvtheque.utils.Utils;
  *
  */
 public class GererUtilisateurServiceImpl implements GererUtilisateurService {
-	private ManagerDao managerDao = new ManagerDaoImpl();
-	private UtilisateurDao userDao = managerDao.getDaoUtilisateur();
-	private AdresseDao adresseDao = managerDao.getDaoAdresse();
-	private ExperienceDao experienceDao = managerDao.getDaoExperience();
+	private UtilisateurDao userDao;
+	private AdresseDao adresseDao;
+	private ExperienceDao experienceDao;
 
 	public void createUser(final Utilisateur user)
 			throws FonctionnelleException {
-		Utilisateur dbUser = userDao.find(user.getId());
+		final Utilisateur dbUser = userDao.find(user.getId());
 
 		//Check si il existe déjà un client avec les paramètres donnés, si oui on lève une exception
 		if(dbUser != null){
@@ -48,7 +45,7 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 	}
 
 	public void updateProfil(Utilisateur user) throws FonctionnelleException {
-		Adresse userAdresse = user.getAdresse();
+		final Adresse userAdresse = user.getAdresse();
 
 		//Check si l'adresse est renseignée, si c'est le cas on vérifie que tous les champs obligatoires sont remplis.
 		if(userAdresse != null && !userAdresse.getRue().isEmpty() && userAdresse.getCodePostal() > 0 
@@ -60,7 +57,7 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 			/* Vérification si l'adresse est déjà présente en base, si oui on ne l'ajoute pas. 
 			 * Sinon on set l'adresse de l'utilisateur à celle trouvée.
 			 */
-			Adresse dbAdresse = adresseDao.find(userAdresse.getId());
+			final Adresse dbAdresse = adresseDao.find(userAdresse.getId());
 			if(dbAdresse == null){
 				adresseDao.create(userAdresse);
 			}else{
@@ -88,7 +85,7 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 
 	public List<Utilisateur> searchUsers(String lastName, String firstName,
 			String birthDate) throws FonctionnelleException {
-		List<Utilisateur> listUtilisateurs = userDao.findUsers(lastName, firstName, birthDate);
+		final List<Utilisateur> listUtilisateurs = userDao.findUsers(lastName, firstName, birthDate);
 		if(listUtilisateurs.isEmpty()){
 			throw new FonctionnelleException(Constantes.NO_USER_FOUND, firstName + " " + lastName + " " + birthDate);
 		}
@@ -97,7 +94,7 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 
 	public List<Utilisateur> searchUsersByClient(Long idClient)
 			throws FonctionnelleException {
-		List<Utilisateur> listUtilisateurs = userDao.findUsersByClient(idClient);
+		final List<Utilisateur> listUtilisateurs = userDao.findUsersByClient(idClient);
 		if(listUtilisateurs.isEmpty()){
 			throw new FonctionnelleException(Constantes.NO_USER_FOUND, String.valueOf(idClient));
 		}
@@ -106,7 +103,7 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 
 	public Utilisateur searchUser(Long idUser) throws FonctionnelleException {
 		try{
-			Utilisateur user = userDao.find(idUser);
+			final Utilisateur user = userDao.find(idUser);
 			return user;
 		}catch(NullPointerException e){
 			throw new FonctionnelleException(Constantes.NO_USER_FOUND, String.valueOf(idUser));
@@ -117,24 +114,12 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 		return userDao;
 	}
 
-	public void setUserDao(UtilisateurDao userDao) {
-		this.userDao = userDao;
-	}
-
 	public AdresseDao getAdresseDao() {
 		return adresseDao;
 	}
 
-	public void setAdresseDao(AdresseDao adresseDao) {
-		this.adresseDao = adresseDao;
-	}
-
 	public ExperienceDao getExperienceDao() {
 		return experienceDao;
-	}
-
-	public void setExperienceDao(ExperienceDao experienceDao) {
-		this.experienceDao = experienceDao;
 	}
 
 }

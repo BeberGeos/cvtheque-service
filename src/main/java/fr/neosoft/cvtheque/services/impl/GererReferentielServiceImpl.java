@@ -5,8 +5,6 @@ import java.util.List;
 import fr.neosoft.cvtheque.dao.CategorieDao;
 import fr.neosoft.cvtheque.dao.ClientDao;
 import fr.neosoft.cvtheque.dao.LangageDao;
-import fr.neosoft.cvtheque.dao.ManagerDao;
-import fr.neosoft.cvtheque.dao.impl.ManagerDaoImpl;
 import fr.neosoft.cvtheque.entities.Adresse;
 import fr.neosoft.cvtheque.entities.Categorie;
 import fr.neosoft.cvtheque.entities.Client;
@@ -23,10 +21,9 @@ import fr.neosoft.cvtheque.utils.Utils;
  *
  */
 public class GererReferentielServiceImpl implements GererReferentielService {
-	private ManagerDao managerDao = new ManagerDaoImpl();
-	private ClientDao clientDao = managerDao.getDaoClient();
-	private LangageDao languageDao = managerDao.getDaoLangage();
-	private CategorieDao categoryDao = managerDao.getDaoCategorie();
+	private ClientDao clientDao;
+	private LangageDao languageDao;
+	private CategorieDao categoryDao;
 
 	public void createClient(final Client client) throws FonctionnelleException {
 		Client dbClient = clientDao.find(client.getId());
@@ -141,24 +138,12 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 		return clientDao;
 	}
 
-	public void setClientDao(ClientDao clientDao) {
-		this.clientDao = clientDao;
-	}
-
 	public LangageDao getLanguageDao() {
 		return languageDao;
 	}
 
-	public void setLanguageDao(LangageDao languageDao) {
-		this.languageDao = languageDao;
-	}
-
 	public CategorieDao getCategoryDao() {
 		return categoryDao;
-	}
-
-	public void setCategoryDao(CategorieDao categoryDao) {
-		this.categoryDao = categoryDao;
 	}
 
 }
