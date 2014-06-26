@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import fr.neosoft.cvtheque.dao.AdresseDao;
+import fr.neosoft.cvtheque.dao.ExperienceDao;
 import fr.neosoft.cvtheque.dao.UtilisateurDao;
 import fr.neosoft.cvtheque.entities.Adresse;
 import fr.neosoft.cvtheque.entities.Client;
@@ -32,14 +34,22 @@ public class GererUtilisateurServiceTest {
 	private AdresseDao adresseDaoMock;
 
 	@Mock
-	private List<Competence> comp;
+	private List<Competence> compsMock;
+	
+	@Mock
+	private List<Utilisateur> usersMock;
 
 	@Mock
-	private Client clt;
-
+	private Client cltMock;
+	
+	@Mock
+	private Experience expMock;
 
 	@Mock
 	private UtilisateurDao userDaoMock;
+	
+	@Mock
+	private ExperienceDao experienceDaoMock;
 
 	@Mock
 	private GererUtilisateurServiceImpl gererUserTest;
@@ -110,13 +120,20 @@ public class GererUtilisateurServiceTest {
 	public void testUpdateprofil(){
 		Mockito.doCallRealMethod().when(gererUserTest).updateProfil(Mockito.any());
 		Mockito.when(gererUserTest.getAdresseDao()).thenReturn(adresseDaoMock);
+		Mockito.when(gererUserTest.getUserDao()).thenReturn(userDaoMock);
 		Mockito.when(adresseDaoMock.find(0)).thenReturn(null);
+		
+		Adresse adr = new Adresse();
+		adr.setCodePostal(33760);
+		adr.setVille("Ville");
+		adr.setRue("Rue");
 		
 		Utilisateur user = new Utilisateur();
 		Calendar cal = Utils.createDateFromString("17/01/1991");
 		user.setNom("Nom");
 		user.setPrenom("Prenom");
 		user.setDateNaissance(cal);
+		user.setAdresse(adr);
 		gererUserTest.createUser(user);
 		try{
 			user.setNom("TestNom");
@@ -129,8 +146,13 @@ public class GererUtilisateurServiceTest {
 	@Test
 	public void testUpdateprofilAdresseInDB(){
 		Adresse adr = new Adresse();
+		adr.setCodePostal(33760);
+		adr.setVille("Ville");
+		adr.setRue("Rue");
+		
 		Mockito.doCallRealMethod().when(gererUserTest).updateProfil(Mockito.any());
 		Mockito.when(gererUserTest.getAdresseDao()).thenReturn(adresseDaoMock);
+		Mockito.when(gererUserTest.getUserDao()).thenReturn(userDaoMock);
 		Mockito.when(adresseDaoMock.find(0)).thenReturn(adr);
 
 		Utilisateur user = new Utilisateur();
@@ -139,10 +161,10 @@ public class GererUtilisateurServiceTest {
 		user.setPrenom("Prenom");
 		user.setDateNaissance(cal);
 		gererUserTest.createUser(user);
+		user.setAdresse(adr);
 		try{
 			user.setNom("TestNom");
 			gererUserTest.updateProfil(user);
-			Mockito.verify(user).setAdresse(Mockito.refEq(adr));
 		}catch(FonctionnelleException e){
 			fail("Données en entrée correctes, ne doit pas lever d'exception.");
 		}
@@ -173,19 +195,21 @@ public class GererUtilisateurServiceTest {
 	public void testUpdateSkill(){
 		Mockito.doCallRealMethod().when(gererUserTest).updateSkill(Mockito.any(), Mockito.any());
 		Mockito.when(gererUserTest.getUserDao()).thenReturn(userDaoMock);
+		Mockito.when(gererUserTest.getExperienceDao()).thenReturn(experienceDaoMock);
+		Mockito.when(expMock.getClient()).thenReturn(cltMock);
+		Mockito.when(expMock.getCompetences()).thenReturn(compsMock);
+		Mockito.when(expMock.getCompetences().isEmpty()).thenReturn(false);
+		Mockito.when(expMock.getDateDebut()).thenReturn(Utils.createDateFromString("17/01/1991"));
 		
 		Utilisateur user = new Utilisateur();
 		Calendar cal = Utils.createDateFromString("17/01/1991");
-		user.setNom("");
+		user.setNom("Nom");
 		user.setPrenom("Prenom");
 		user.setDateNaissance(cal);
+		user.setExperiences(new ArrayList<Experience>());
 
-		Experience exp = new Experience();
-		exp.setClient(clt);
-		exp.setCompetences(comp);
-		exp.setDateDebut(cal);
 		try{
-			gererUserTest.updateSkill(user, exp);
+			gererUserTest.updateSkill(user, expMock);
 		}catch(FonctionnelleException e){
 			fail("Données d'entrée correctes, ne doit pas lever d'exception.");
 		}
@@ -195,19 +219,20 @@ public class GererUtilisateurServiceTest {
 	public void testUpdateSkillNoClient(){
 		Mockito.doCallRealMethod().when(gererUserTest).updateSkill(Mockito.any(), Mockito.any());
 		Mockito.when(gererUserTest.getUserDao()).thenReturn(userDaoMock);
+		Mockito.when(gererUserTest.getExperienceDao()).thenReturn(experienceDaoMock);
+		Mockito.when(expMock.getClient()).thenReturn(null);
+		Mockito.when(expMock.getCompetences()).thenReturn(compsMock);
+		Mockito.when(expMock.getCompetences().isEmpty()).thenReturn(false);
+		Mockito.when(expMock.getDateDebut()).thenReturn(Utils.createDateFromString("17/01/1991"));
 		
 		Utilisateur user = new Utilisateur();
 		Calendar cal = Utils.createDateFromString("17/01/1991");
-		user.setNom("");
+		user.setNom("Nom");
 		user.setPrenom("Prenom");
 		user.setDateNaissance(cal);
 
-		Experience exp = new Experience();
-		exp.setClient(null);
-		exp.setCompetences(comp);
-		exp.setDateDebut(cal);
 		try{
-			gererUserTest.updateSkill(user, exp);
+			gererUserTest.updateSkill(user, expMock);
 			fail("Client null -> Exception");
 		}catch(FonctionnelleException e){
 			assertEquals("Client null -> exception", e.getCodeErreur(), Constantes.EXPERIENCE_NOT_COMPLETE);
@@ -218,19 +243,20 @@ public class GererUtilisateurServiceTest {
 	public void testUpdateSkillNoCompetence(){
 		Mockito.doCallRealMethod().when(gererUserTest).updateSkill(Mockito.any(), Mockito.any());
 		Mockito.when(gererUserTest.getUserDao()).thenReturn(userDaoMock);
+		Mockito.when(gererUserTest.getExperienceDao()).thenReturn(experienceDaoMock);
+		Mockito.when(expMock.getClient()).thenReturn(cltMock);
+		Mockito.when(expMock.getCompetences()).thenReturn(compsMock);
+		Mockito.when(expMock.getCompetences().isEmpty()).thenReturn(true);
+		Mockito.when(expMock.getDateDebut()).thenReturn(Utils.createDateFromString("17/01/1991"));
 		
 		Utilisateur user = new Utilisateur();
 		Calendar cal = Utils.createDateFromString("17/01/1991");
-		user.setNom("");
+		user.setNom("Nom");
 		user.setPrenom("Prenom");
 		user.setDateNaissance(cal);
 
-		Experience exp = new Experience();
-		exp.setClient(clt);
-		exp.setCompetences(null);
-		exp.setDateDebut(cal);
 		try{
-			gererUserTest.updateSkill(user, exp);
+			gererUserTest.updateSkill(user, expMock);
 			fail("Competence null -> Exception");
 		}catch(FonctionnelleException e){
 			assertEquals("Competence null -> exception", e.getCodeErreur(), Constantes.EXPERIENCE_NOT_COMPLETE);
@@ -241,19 +267,20 @@ public class GererUtilisateurServiceTest {
 	public void testUpdateSkillNoDate(){
 		Mockito.doCallRealMethod().when(gererUserTest).updateSkill(Mockito.any(), Mockito.any());
 		Mockito.when(gererUserTest.getUserDao()).thenReturn(userDaoMock);
+		Mockito.when(gererUserTest.getExperienceDao()).thenReturn(experienceDaoMock);
+		Mockito.when(expMock.getClient()).thenReturn(cltMock);
+		Mockito.when(expMock.getCompetences()).thenReturn(compsMock);
+		Mockito.when(expMock.getCompetences().isEmpty()).thenReturn(false);
+		Mockito.when(expMock.getDateDebut()).thenReturn(null);
 		
 		Utilisateur user = new Utilisateur();
 		Calendar cal = Utils.createDateFromString("17/01/1991");
-		user.setNom("");
+		user.setNom("Nom");
 		user.setPrenom("Prenom");
 		user.setDateNaissance(cal);
 
-		Experience exp = new Experience();
-		exp.setClient(clt);
-		exp.setCompetences(comp);
-		exp.setDateDebut(null);
 		try{
-			gererUserTest.updateSkill(user, exp);
+			gererUserTest.updateSkill(user, expMock);
 			fail("Date null -> Exception");
 		}catch(FonctionnelleException e){
 			assertEquals("Date null -> exception", e.getCodeErreur(), Constantes.EXPERIENCE_NOT_COMPLETE);
@@ -264,7 +291,9 @@ public class GererUtilisateurServiceTest {
 	public void testSearchUsers(){
 		Mockito.doCallRealMethod().when(gererUserTest).searchUsers(Mockito.any(), Mockito.any(), Mockito.any());
 		Mockito.when(gererUserTest.getUserDao()).thenReturn(userDaoMock);
-		Mockito.when(userDaoMock.findUsers(Mockito.anyString(), Mockito.anyString(), "17/01/1991")).thenReturn(Mockito.anyListOf(Utilisateur.class));
+		Mockito.when(userDaoMock.findUsers(Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(usersMock);
+		Mockito.when(usersMock.isEmpty()).thenReturn(false);
+		Mockito.when(usersMock.size()).thenReturn(5);
 
 		try{
 			List<Utilisateur> users = gererUserTest.searchUsers("Nom", "Prenom", "17/01/1991");
@@ -278,7 +307,9 @@ public class GererUtilisateurServiceTest {
 	public void testSearchUsersByClient(){
 		Mockito.doCallRealMethod().when(gererUserTest).searchUsersByClient(Mockito.any());
 		Mockito.when(gererUserTest.getUserDao()).thenReturn(userDaoMock);
-		Mockito.when(userDaoMock.findUsersByClient(0L)).thenReturn(Mockito.anyListOf(Utilisateur.class));
+		Mockito.when(userDaoMock.findUsersByClient(0L)).thenReturn(usersMock);
+		Mockito.when(usersMock.isEmpty()).thenReturn(false);
+		Mockito.when(usersMock.size()).thenReturn(5);
 		
 		try{
 			List<Utilisateur> users = gererUserTest.searchUsersByClient(0L);

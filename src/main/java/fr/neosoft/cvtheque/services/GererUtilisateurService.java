@@ -41,7 +41,7 @@ public interface GererUtilisateurService {
 	public void updateProfil(Utilisateur user)throws FonctionnelleException;
 	/**
 	 * Cette méthode va permettre de créer ou de modifier l’expérience d’un utilisateur. 
-	 * L’expérience devra contenir un client, une expérience minimum et une date début.
+	 * L’expérience devra contenir un client, une compétence minimum et une date début.
 	 * 
 	 * @param user l'utilisateur
 	 * @param experience l'experience

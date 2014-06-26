@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Size;
 
 
@@ -31,7 +32,7 @@ public class Adresse implements Serializable {
 	private int id;
 
 	@Column(name="CODE_POSTAL")
-	@Size(max=5)
+	@Max(99999)
 	private int codePostal;
 
 	@Column(name="DATE_MODIFICATION")

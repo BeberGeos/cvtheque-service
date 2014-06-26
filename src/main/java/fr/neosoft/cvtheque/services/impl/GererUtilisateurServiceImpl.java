@@ -26,7 +26,7 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 
 	public void createUser(final Utilisateur user)
 			throws FonctionnelleException {
-		final Utilisateur dbUser = userDao.find(user.getId());
+		final Utilisateur dbUser = getUserDao().find(user.getId());
 
 		//Check si il existe déjà un client avec les paramètres donnés, si oui on lève une exception
 		if(dbUser != null){
@@ -39,7 +39,7 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 			}else{
 				Utils.checkConstraints(user, user.getPrenom() + " " + user.getNom() + " " 
 						+ user.getDateNaissance());
-				userDao.create(user);
+				getUserDao().create(user);
 			}
 		}
 	}
@@ -49,33 +49,38 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 
 		//Check si l'adresse est renseignée, si c'est le cas on vérifie que tous les champs obligatoires sont remplis.
 		if(userAdresse != null && !userAdresse.getRue().isEmpty() && userAdresse.getCodePostal() > 0 
-				&& !userAdresse.getVille().isEmpty()){
+				&& !userAdresse.getVille().isEmpty() && !user.getNom().isEmpty() && !user.getPrenom().isEmpty()
+				&& user.getDateNaissance() != null){
 
 			Utils.checkConstraints(userAdresse, userAdresse.getRue() + " " + userAdresse.getCodePostal() + " " 
 					+ userAdresse.getVille());
+			Utils.checkConstraints(user, user.getDateNaissance().toString());
 
 			/* Vérification si l'adresse est déjà présente en base, si oui on ne l'ajoute pas. 
 			 * Sinon on set l'adresse de l'utilisateur à celle trouvée.
 			 */
-			final Adresse dbAdresse = adresseDao.find(userAdresse.getId());
+			final Adresse dbAdresse = getAdresseDao().find(userAdresse.getId());
 			if(dbAdresse == null){
-				adresseDao.create(userAdresse);
+				getAdresseDao().create(userAdresse);
 			}else{
 				user.setAdresse(dbAdresse);
 			}
-			userDao.update(user);
+			getUserDao().update(user);
+		}else{
+			throw new FonctionnelleException(Constantes.FIELD_REQUIRED, user.toString());
 		}
 	}
 
 	public void updateSkill(Utilisateur user, Experience experience) throws FonctionnelleException {
 		List<Experience> userExperiences = user.getExperiences();
-		if(experience.getClient() != null && experience.getCompetences().size() > 0 && experience.getDateDebut() != null){
+		if(experience.getClient() != null && experience.getCompetences() != null && !experience.getCompetences().isEmpty()
+				&& experience.getDateDebut() != null){
 			if(userExperiences.contains(experience)){
-				experienceDao.update(experience);
+				getExperienceDao().update(experience);
 			}else{
-				experienceDao.create(experience);
+				getExperienceDao().create(experience);
 				userExperiences.add(experience);
-				userDao.update(user);
+				getUserDao().update(user);
 			}
 		}else{
 			throw new FonctionnelleException(Constantes.EXPERIENCE_NOT_COMPLETE, experience.toString());
@@ -85,7 +90,7 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 
 	public List<Utilisateur> searchUsers(String lastName, String firstName,
 			String birthDate) throws FonctionnelleException {
-		final List<Utilisateur> listUtilisateurs = userDao.findUsers(lastName, firstName, birthDate);
+		final List<Utilisateur> listUtilisateurs = getUserDao().findUsers(lastName, firstName, birthDate);
 		if(listUtilisateurs.isEmpty()){
 			throw new FonctionnelleException(Constantes.NO_USER_FOUND, firstName + " " + lastName + " " + birthDate);
 		}
@@ -94,7 +99,7 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 
 	public List<Utilisateur> searchUsersByClient(Long idClient)
 			throws FonctionnelleException {
-		final List<Utilisateur> listUtilisateurs = userDao.findUsersByClient(idClient);
+		final List<Utilisateur> listUtilisateurs = getUserDao().findUsersByClient(idClient);
 		if(listUtilisateurs.isEmpty()){
 			throw new FonctionnelleException(Constantes.NO_USER_FOUND, String.valueOf(idClient));
 		}
@@ -103,7 +108,7 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 
 	public Utilisateur searchUser(Long idUser) throws FonctionnelleException {
 		try{
-			final Utilisateur user = userDao.find(idUser);
+			final Utilisateur user = getUserDao().find(idUser);
 			return user;
 		}catch(NullPointerException e){
 			throw new FonctionnelleException(Constantes.NO_USER_FOUND, String.valueOf(idUser));
