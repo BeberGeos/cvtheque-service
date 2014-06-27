@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Max;
 
 
 /**
@@ -25,6 +27,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @NamedQuery(name="Client.findAll", query="SELECT c FROM Client c")
+@Stateless
+@Local
 public class Client implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -40,7 +44,7 @@ public class Client implements Serializable {
 	private String nom;
 
 	@Column(name="SIRET")
-	@Size(max=14)
+	@Max(99999999999999L)
 	private Long siret;
 
 	@Version

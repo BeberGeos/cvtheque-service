@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,6 +27,8 @@ import javax.persistence.Version;
  */
 @Entity
 @NamedQuery(name="Experience.findAll", query="SELECT e FROM Experience e")
+@Stateless
+@Local
 public class Experience implements Serializable {
 	private static final long serialVersionUID = 1L;
 

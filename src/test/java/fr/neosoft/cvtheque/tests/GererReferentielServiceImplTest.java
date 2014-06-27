@@ -34,6 +34,9 @@ public class GererReferentielServiceImplTest {
 	
 	@Mock
 	private GererReferentielServiceImpl refService;
+	
+	@Mock
+	private List<Categorie> categsMock;
 
 	@Before
 	public void setUp() throws Exception {
@@ -158,7 +161,7 @@ public class GererReferentielServiceImplTest {
 	public void testSearchClient() {
 		Mockito.doCallRealMethod().when(refService).searchClient(Mockito.any());
 		Mockito.when(refService.getClientDao()).thenReturn(clientDaoMock);
-		Mockito.when(clientDaoMock.find(0L)).thenReturn(new Client());
+		Mockito.when(clientDaoMock.findClientBySiret(0L)).thenReturn(new Client());
 		
 		try{
 			Client client = refService.searchClient(0L);
@@ -200,7 +203,7 @@ public class GererReferentielServiceImplTest {
 	public void testSearchListCategory() {
 		Mockito.doCallRealMethod().when(refService).searchClient(Mockito.any());
 		Mockito.when(refService.getCategoryDao()).thenReturn(categorieDaoMock);
-		Mockito.when(categorieDaoMock.findAllCategories()).thenReturn(Mockito.anyListOf(Categorie.class));
+		Mockito.when(categorieDaoMock.findAllCategories()).thenReturn(categsMock);
 		
 		try{
 			List<Categorie> categories = refService.searchListCategory();

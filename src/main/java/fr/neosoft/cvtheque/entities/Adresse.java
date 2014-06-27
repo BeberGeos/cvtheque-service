@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,6 +26,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @NamedQuery(name="Adresse.findAll", query="SELECT a FROM Adresse a")
+@Stateless
+@Local
 public class Adresse implements Serializable {
 	private static final long serialVersionUID = 1L;
 

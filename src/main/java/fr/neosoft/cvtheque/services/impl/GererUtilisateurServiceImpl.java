@@ -2,6 +2,9 @@ package fr.neosoft.cvtheque.services.impl;
 
 import java.util.List;
 
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+
 import fr.neosoft.cvtheque.dao.AdresseDao;
 import fr.neosoft.cvtheque.dao.ExperienceDao;
 import fr.neosoft.cvtheque.dao.UtilisateurDao;
@@ -19,6 +22,8 @@ import fr.neosoft.cvtheque.utils.Utils;
  * @author Adrien Cambillau
  *
  */
+@Stateless
+@Remote
 public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 	private UtilisateurDao userDao;
 	private AdresseDao adresseDao;
@@ -107,12 +112,11 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 	}
 
 	public Utilisateur searchUser(Long idUser) throws FonctionnelleException {
-		try{
-			final Utilisateur user = getUserDao().find(idUser);
-			return user;
-		}catch(NullPointerException e){
-			throw new FonctionnelleException(Constantes.NO_USER_FOUND, String.valueOf(idUser));
+		final Utilisateur user = getUserDao().find(idUser);
+		if(user == null){
+			throw new FonctionnelleException(Constantes.NO_USER_FOUND, user.toString());
 		}
+		return user;
 	}
 
 	public UtilisateurDao getUserDao() {

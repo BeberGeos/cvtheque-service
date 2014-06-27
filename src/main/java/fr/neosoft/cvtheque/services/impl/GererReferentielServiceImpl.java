@@ -2,6 +2,9 @@ package fr.neosoft.cvtheque.services.impl;
 
 import java.util.List;
 
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+
 import fr.neosoft.cvtheque.dao.CategorieDao;
 import fr.neosoft.cvtheque.dao.ClientDao;
 import fr.neosoft.cvtheque.dao.LangageDao;
@@ -20,13 +23,15 @@ import fr.neosoft.cvtheque.utils.Utils;
  * @author Adrien Cambillau
  *
  */
+@Stateless
+@Remote
 public class GererReferentielServiceImpl implements GererReferentielService {
 	private ClientDao clientDao;
 	private LangageDao languageDao;
 	private CategorieDao categoryDao;
 
 	public void createClient(final Client client) throws FonctionnelleException {
-		Client dbClient = clientDao.find(client.getId());
+		Client dbClient = getClientDao().find(client.getId());
 
 		if(dbClient != null){
 			throw new FonctionnelleException(Constantes.CLIENT_ALREADY_IN_DB, client.toString());
@@ -36,7 +41,7 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 					&& !clientAdresse.getRue().isEmpty() && !clientAdresse.getVille().isEmpty()){
 				Utils.checkConstraints(client, client.toString());
 				Utils.checkConstraints(clientAdresse, clientAdresse.toString());
-				clientDao.create(client);
+				getClientDao().create(client);
 			}else{
 				throw new FonctionnelleException(Constantes.FIELD_REQUIRED, client.toString());
 			}
@@ -49,60 +54,60 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 				&& !clientAdresse.getRue().isEmpty() && !clientAdresse.getVille().isEmpty()){
 			Utils.checkConstraints(client, client.toString());
 			Utils.checkConstraints(clientAdresse, clientAdresse.toString());
-			clientDao.update(client);
+			getClientDao().update(client);
 		}else{
 			throw new FonctionnelleException(Constantes.FIELD_REQUIRED, client.toString());
 		}
 	}
 
 	public void createLangage(final Langage langage) throws FonctionnelleException {
-		Langage dbLanguage = languageDao.findLanguageByName(langage.getLibelle());
+		Langage dbLanguage = getLanguageDao().findLanguageByName(langage.getLibelle());
 
 		if(dbLanguage != null){
 			throw new FonctionnelleException(Constantes.LANGUAGE_ALREADY_IN_DB, langage.toString());
 		}else{
 			Utils.checkConstraints(langage, langage.toString());
-			languageDao.create(langage);
+			getLanguageDao().create(langage);
 		}
 	}
 
 	public void updateLangage(Langage langage) throws FonctionnelleException {
-		Langage dbLanguage = languageDao.findLanguageByName(langage.getLibelle());
+		Langage dbLanguage = getLanguageDao().findLanguageByName(langage.getLibelle());
 
 		if(dbLanguage != null){
 			throw new FonctionnelleException(Constantes.LANGUAGE_ALREADY_IN_DB, langage.toString());
 		}else{
 			Utils.checkConstraints(langage, langage.toString());
-			languageDao.update(langage);
+			getLanguageDao().update(langage);
 		}
 	}
 
 	public void createCategory(final Categorie categorie)
 			throws FonctionnelleException {
-		Categorie dbCategorie = categoryDao.findCategoryByName(categorie.getLibelle());
+		Categorie dbCategorie = getCategoryDao().findCategoryByName(categorie.getLibelle());
 
 		if(dbCategorie != null){
 			throw new FonctionnelleException(Constantes.CATEGORY_ALREADY_IN_DB, categorie.toString());
 		}else{
 			Utils.checkConstraints(categorie, categorie.toString());
-			categoryDao.create(categorie);
+			getCategoryDao().create(categorie);
 		}
 	}
 
 	public void updateCategory(Categorie categorie)
 			throws FonctionnelleException {
-		Categorie dbCategorie = categoryDao.findCategoryByName(categorie.getLibelle());
+		Categorie dbCategorie = getCategoryDao().findCategoryByName(categorie.getLibelle());
 
 		if(dbCategorie != null){
 			throw new FonctionnelleException(Constantes.CATEGORY_ALREADY_IN_DB, categorie.toString());
 		}else{
 			Utils.checkConstraints(categorie, categorie.toString());
-			categoryDao.update(categorie);
+			getCategoryDao().update(categorie);
 		}
 	}
 
 	public Client searchClient(final Long siret) throws FonctionnelleException {
-		Client client = clientDao.findClientBySiret(siret);
+		Client client = getClientDao().findClientBySiret(siret);
 
 		if(client == null){
 			throw new FonctionnelleException(Constantes.NO_CLIENT_FOUND, String.valueOf(siret));
@@ -111,7 +116,7 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 	}
 
 	public Langage searchLangage(final Long idLangage) throws FonctionnelleException {
-		Langage langage = languageDao.find(idLangage);
+		Langage langage = getLanguageDao().find(idLangage);
 
 		if(langage == null){
 			throw new FonctionnelleException(Constantes.NO_LANGUAGE_FOUND, String.valueOf(idLangage));
@@ -121,14 +126,17 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 
 	public List<Langage> searchListLangage(final String libelle)
 			throws FonctionnelleException {
-		List<Langage> languages = languageDao.findLanguagesByName(libelle);
+		List<Langage> languages = getLanguageDao().findLanguagesByName(libelle);
+		if(languages.isEmpty()){
+			throw new FonctionnelleException(Constantes.NO_LANGUAGE_FOUND, "");
+		}
 		return languages;
 	}
 
 	public List<Categorie> searchListCategory() throws FonctionnelleException {
-		List<Categorie> categories = categoryDao.findAllCategories();
+		List<Categorie> categories = getCategoryDao().findAllCategories();
 
-		if(categories.size() == 0){
+		if(categories.isEmpty()){
 			throw new FonctionnelleException(Constantes.NO_CATEGORY_FOUND, "");
 		}
 		return categories;

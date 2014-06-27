@@ -32,7 +32,7 @@ public class UtilisateurDaoImpl extends GenericDaoImpl<Utilisateur> implements U
 		query.setParameter("lastName", lastName);
 		query.setParameter("firstName", firstName);
 		query.setParameter("birthDate", birthDate);
-		
+
 		final List<Utilisateur> users = query.getResultList();
 		return users;
 	}
@@ -41,18 +41,30 @@ public class UtilisateurDaoImpl extends GenericDaoImpl<Utilisateur> implements U
 		String jpql = "SELECT u FROM Utilisateur u JOIN u.adresse adr WHERE adr IN (SELECT c FROM Client c JOIN adr WHERE c.client.id = :idClient)";
 		Query query = getEntityManager().createQuery(jpql);
 		query.setParameter("idClient", idClient);
-		
+
 		List<Utilisateur> users = query.getResultList();
 		return users;
 	}
 
-	public List<Utilisateur> findUserByLanguageOrCategory(Long idLangage,
-			Long idCategory) {
-		String jpql = "SELECT u FROM Utilisateur u JOIN u.experiences exp JOIN exp.competences comp WHERE comp.categorie.id = :idCategory AND comp.langage.id = :idLanguage";
-		Query query = getEntityManager().createQuery(jpql);
-		query.setParameter("idCategory", idCategory);
-		query.setParameter("idLanguage", idLangage);
-		
+	public List<Utilisateur> findUserByLanguageOrCategory(final Long idLangage,
+			final Long idCategory) {
+		String jpql;
+		Query query = null;
+		if(idLangage != null && idCategory != null){
+			jpql = "SELECT u FROM Utilisateur u JOIN u.experiences exp JOIN exp.competences comp WHERE comp.categorie.id = :idCategory AND comp.langage.id = :idLanguage";
+			query = getEntityManager().createQuery(jpql);
+			query.setParameter("idCategory", idCategory);
+			query.setParameter("idLanguage", idLangage);
+		}else if(idLangage != null && idCategory == null){
+			jpql = "SELECT u FROM Utilisateur u JOIN u.experiences exp JOIN exp.competences comp WHERE comp.langage.id = :idLanguage";
+			query = getEntityManager().createQuery(jpql);
+			query.setParameter("idLanguage", idLangage);
+		}else if(idLangage == null && idCategory != null){
+			jpql = "SELECT u FROM Utilisateur u JOIN u.experiences exp JOIN exp.competences comp WHERE comp.categorie.id = :idCategory";
+			query = getEntityManager().createQuery(jpql);
+			query.setParameter("idCategory", idCategory);
+		}
+
 		List<Utilisateur> users = query.getResultList();
 		return users;
 	}

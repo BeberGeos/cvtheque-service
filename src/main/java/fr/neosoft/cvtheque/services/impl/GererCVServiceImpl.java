@@ -2,6 +2,9 @@ package fr.neosoft.cvtheque.services.impl;
 
 import java.util.List;
 
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+
 import fr.neosoft.cvtheque.dao.UtilisateurDao;
 import fr.neosoft.cvtheque.entities.Utilisateur;
 import fr.neosoft.cvtheque.services.GererCVService;
@@ -15,6 +18,8 @@ import fr.neosoft.cvtheque.utils.TypeDocument;
  * @author Adrien Cambillau
  *
  */
+@Stateless
+@Remote
 public class GererCVServiceImpl implements GererCVService {
 	private UtilisateurDao userDao;
 
@@ -22,7 +27,7 @@ public class GererCVServiceImpl implements GererCVService {
 			Long idCategory) throws FonctionnelleException {
 		List<Utilisateur> users;
 		if(idLangage != null || idCategory != null){
-			users = userDao.findUserByLanguageOrCategory(idLangage, idCategory);
+			users = getUserDao().findUserByLanguageOrCategory(idLangage, idCategory);
 			if(users == null){
 				throw new FonctionnelleException(Constantes.NO_USER_FOUND, String.valueOf(idLangage) + " " + String.valueOf(idCategory));
 			}
