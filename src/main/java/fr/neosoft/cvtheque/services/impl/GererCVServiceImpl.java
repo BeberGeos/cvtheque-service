@@ -19,7 +19,7 @@ import fr.neosoft.cvtheque.utils.TypeDocument;
  *
  */
 @Stateless
-@Remote
+@Remote(GererCVService.class)
 public class GererCVServiceImpl implements GererCVService {
 	private UtilisateurDao userDao;
 

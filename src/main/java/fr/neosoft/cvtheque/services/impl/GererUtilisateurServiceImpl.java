@@ -23,7 +23,7 @@ import fr.neosoft.cvtheque.utils.Utils;
  *
  */
 @Stateless
-@Remote
+@Remote(GererUtilisateurService.class)
 public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 	private UtilisateurDao userDao;
 	private AdresseDao adresseDao;

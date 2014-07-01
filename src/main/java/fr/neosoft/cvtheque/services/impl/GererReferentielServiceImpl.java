@@ -24,7 +24,7 @@ import fr.neosoft.cvtheque.utils.Utils;
  *
  */
 @Stateless
-@Remote
+@Remote(GererReferentielService.class)
 public class GererReferentielServiceImpl implements GererReferentielService {
 	private ClientDao clientDao;
 	private LangageDao languageDao;
@@ -37,7 +37,7 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 			throw new FonctionnelleException(Constantes.CLIENT_ALREADY_IN_DB, client.toString());
 		}else{
 			Adresse clientAdresse = client.getAdresse();
-			if(!client.getNom().isEmpty() && client.getSiret() != 0 && clientAdresse.getCodePostal() != 0 
+			if(!client.getNom().isEmpty() && client.getSiret() != 0 && clientAdresse != null && clientAdresse.getCodePostal() != 0 
 					&& !clientAdresse.getRue().isEmpty() && !clientAdresse.getVille().isEmpty()){
 				Utils.checkConstraints(client, client.toString());
 				Utils.checkConstraints(clientAdresse, clientAdresse.toString());
@@ -50,7 +50,7 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 
 	public void updateClient(Client client) throws FonctionnelleException {
 		Adresse clientAdresse = client.getAdresse();
-		if(!client.getNom().isEmpty() && client.getSiret() != 0 && clientAdresse.getCodePostal() != 0 
+		if(!client.getNom().isEmpty() && client.getSiret() != 0 && clientAdresse != null && clientAdresse.getCodePostal() != 0 
 				&& !clientAdresse.getRue().isEmpty() && !clientAdresse.getVille().isEmpty()){
 			Utils.checkConstraints(client, client.toString());
 			Utils.checkConstraints(clientAdresse, clientAdresse.toString());
@@ -65,9 +65,11 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 
 		if(dbLanguage != null){
 			throw new FonctionnelleException(Constantes.LANGUAGE_ALREADY_IN_DB, langage.toString());
-		}else{
+		}else if(!langage.getLibelle().isEmpty()){
 			Utils.checkConstraints(langage, langage.toString());
 			getLanguageDao().create(langage);
+		}else{
+			throw new FonctionnelleException(Constantes.FIELD_REQUIRED, langage.toString());
 		}
 	}
 
@@ -76,9 +78,11 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 
 		if(dbLanguage != null){
 			throw new FonctionnelleException(Constantes.LANGUAGE_ALREADY_IN_DB, langage.toString());
-		}else{
+		}else if(!langage.getLibelle().isEmpty()){
 			Utils.checkConstraints(langage, langage.toString());
 			getLanguageDao().update(langage);
+		}else{
+			throw new FonctionnelleException(Constantes.FIELD_REQUIRED, langage.toString());
 		}
 	}
 
@@ -88,9 +92,11 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 
 		if(dbCategorie != null){
 			throw new FonctionnelleException(Constantes.CATEGORY_ALREADY_IN_DB, categorie.toString());
-		}else{
+		}else if(!categorie.getLibelle().isEmpty()){
 			Utils.checkConstraints(categorie, categorie.toString());
 			getCategoryDao().create(categorie);
+		}else{
+			throw new FonctionnelleException(Constantes.FIELD_REQUIRED, categorie.toString());
 		}
 	}
 
@@ -100,9 +106,11 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 
 		if(dbCategorie != null){
 			throw new FonctionnelleException(Constantes.CATEGORY_ALREADY_IN_DB, categorie.toString());
-		}else{
+		}else if(!categorie.getLibelle().isEmpty()){
 			Utils.checkConstraints(categorie, categorie.toString());
 			getCategoryDao().update(categorie);
+		}else{
+			throw new FonctionnelleException(Constantes.FIELD_REQUIRED, categorie.toString());
 		}
 	}
 
