@@ -28,7 +28,7 @@ public class GererCVServiceImpl implements GererCVService {
 		List<Utilisateur> users;
 		if(idLangage != null || idCategory != null){
 			users = getUserDao().findUserByLanguageOrCategory(idLangage, idCategory);
-			if(users == null){
+			if(users.isEmpty()){
 				throw new FonctionnelleException(Constantes.NO_USER_FOUND, String.valueOf(idLangage) + " " + String.valueOf(idCategory));
 			}
 		}else{

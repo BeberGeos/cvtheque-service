@@ -362,29 +362,57 @@ public class GererReferentielServiceImplTest {
 
 	@Test
 	public void testSearchListLangage() {
-		Mockito.doCallRealMethod().when(refService).searchClient(Mockito.any());
+		Mockito.doCallRealMethod().when(refService).searchListLangage(Mockito.any());
 		Mockito.when(refService.getLanguageDao()).thenReturn(langageDaoMock);
 		Mockito.when(langageDaoMock.findLanguagesByName(Mockito.any())).thenReturn(langagesMock);
 		
 		try{
 			List<Langage> languages = refService.searchListLangage("Java");
-			assertNotNull(languages);
 		}catch(FonctionnelleException e){
 			fail("Ne doit pas lever d'exception.");
+		}
+	}
+	
+	@Test
+	public void testSearchListLangageNoLangage() {
+		Mockito.doCallRealMethod().when(refService).searchListLangage(Mockito.any());
+		Mockito.when(refService.getLanguageDao()).thenReturn(langageDaoMock);
+		Mockito.when(langageDaoMock.findLanguagesByName(Mockito.any())).thenReturn(langagesMock);
+		Mockito.when(langagesMock.isEmpty()).thenReturn(true);
+		
+		try{
+			List<Langage> languages = refService.searchListLangage("Java");
+			fail("Doit lever une exception.");
+		}catch(FonctionnelleException e){
+			assertEquals("Pas de langage trouvé -> exception.", e.getCodeErreur(), Constantes.NO_LANGUAGE_FOUND);
 		}
 	}
 
 	@Test
 	public void testSearchListCategory() {
-		Mockito.doCallRealMethod().when(refService).searchClient(Mockito.any());
+		Mockito.doCallRealMethod().when(refService).searchListCategory();
 		Mockito.when(refService.getCategoryDao()).thenReturn(categorieDaoMock);
 		Mockito.when(categorieDaoMock.findAllCategories()).thenReturn(categsMock);
 		
 		try{
 			List<Categorie> categories = refService.searchListCategory();
-			assertNotNull(categories);
 		}catch(FonctionnelleException e){
 			fail("Ne doit pas lever d'exception.");
+		}
+	}
+	
+	@Test
+	public void testSearchListCategoryNoCategory() {
+		Mockito.doCallRealMethod().when(refService).searchListCategory();
+		Mockito.when(refService.getCategoryDao()).thenReturn(categorieDaoMock);
+		Mockito.when(categorieDaoMock.findAllCategories()).thenReturn(categsMock);
+		Mockito.when(categsMock.isEmpty()).thenReturn(true);
+		
+		try{
+			List<Categorie> categories = refService.searchListCategory();
+			fail("Doit lever une exception.");
+		}catch(FonctionnelleException e){
+			assertEquals("Pas de categorie trouvée -> exception.", e.getCodeErreur(), Constantes.NO_CATEGORY_FOUND);
 		}
 	}
 
