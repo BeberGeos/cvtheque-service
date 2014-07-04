@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import fr.neosoft.cvtheque.dao.GenericDao;
 
+
 public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 	
 	@PersistenceContext(unitName = "cvtheque-service")

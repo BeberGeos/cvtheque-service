@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,8 +25,6 @@ import javax.validation.constraints.Max;
  */
 @Entity
 @NamedQuery(name="Client.findAll", query="SELECT c FROM Client c")
-@Stateless
-@Local
 public class Client implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,8 +27,6 @@ import javax.validation.constraints.Size;
 	@NamedQuery(name="Langage.findAll", query="SELECT l FROM Langage l"),
 	@NamedQuery(name="Langage.findByName", query="SELECT l FROM Langage l WHERE l.libelle LIKE '%:libelle%'")
 })
-@Stateless
-@Local
 public class Langage implements Serializable {
 	private static final long serialVersionUID = 1L;
 

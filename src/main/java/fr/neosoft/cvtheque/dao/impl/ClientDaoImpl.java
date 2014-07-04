@@ -2,6 +2,8 @@ package fr.neosoft.cvtheque.dao.impl;
 
 import java.util.List;
 
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -14,7 +16,13 @@ import fr.neosoft.cvtheque.entities.Client;
  * @author Adrien Cambillau
  *
  */
+@Stateless
+@Local
 public class ClientDaoImpl extends GenericDaoImpl<Client> implements ClientDao {
+	
+	public ClientDaoImpl(){
+		super();
+	}
 	
 	public ClientDaoImpl(EntityManager entityManager) {
 		super();

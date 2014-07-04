@@ -2,6 +2,8 @@ package fr.neosoft.cvtheque.dao.impl;
 
 import java.util.List;
 
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -14,7 +16,13 @@ import fr.neosoft.cvtheque.entities.Langage;
  * @author Adrien Cambillau
  *
  */
+@Stateless
+@Local
 public class LangageDaoImpl extends GenericDaoImpl<Langage> implements LangageDao {
+	
+	public LangageDaoImpl(){
+		super();
+	}
 
 	public LangageDaoImpl(EntityManager entityManager) {
 		super();
