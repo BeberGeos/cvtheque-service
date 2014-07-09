@@ -2,8 +2,6 @@ package fr.neosoft.cvtheque.dao.impl;
 
 import java.util.List;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -16,13 +14,7 @@ import fr.neosoft.cvtheque.entities.Categorie;
  * @author Adrien Cambillau
  *
  */
-@Stateless
-@Local
 public class CategorieDaoImpl extends GenericDaoImpl<Categorie> implements CategorieDao {
-	
-	public CategorieDaoImpl(){
-		super();
-	}
 	
 	public CategorieDaoImpl(EntityManager entityManager) {
 		super();

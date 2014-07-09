@@ -2,6 +2,9 @@ package fr.neosoft.cvtheque.dao;
 
 import java.util.List;
 
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+
 import fr.neosoft.cvtheque.entities.Experience;
 
 /**
@@ -10,6 +13,8 @@ import fr.neosoft.cvtheque.entities.Experience;
  * @author Adrien Cambillau
  *
  */
+@Stateless
+@Local
 public interface ExperienceDao extends GenericDao<Experience>{
 	/**
 	 * Retrieve all the "experience".

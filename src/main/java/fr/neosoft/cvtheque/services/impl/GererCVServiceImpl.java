@@ -2,9 +2,6 @@ package fr.neosoft.cvtheque.services.impl;
 
 import java.util.List;
 
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-
 import fr.neosoft.cvtheque.dao.UtilisateurDao;
 import fr.neosoft.cvtheque.entities.Utilisateur;
 import fr.neosoft.cvtheque.services.GererCVService;
@@ -18,8 +15,6 @@ import fr.neosoft.cvtheque.utils.TypeDocument;
  * @author Adrien Cambillau
  *
  */
-@Stateless
-@Remote(GererCVService.class)
 public class GererCVServiceImpl implements GererCVService {
 	private UtilisateurDao userDao;
 

@@ -2,6 +2,9 @@ package fr.neosoft.cvtheque.dao;
 
 import java.util.List;
 
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+
 import fr.neosoft.cvtheque.entities.Utilisateur;
 
 /**
@@ -10,6 +13,8 @@ import fr.neosoft.cvtheque.entities.Utilisateur;
  * @author Adrien Cambillau
  *
  */
+@Stateless
+@Local
 public interface UtilisateurDao extends GenericDao<Utilisateur>{
 	/**
 	 * Retrieve all the "utilisateur".

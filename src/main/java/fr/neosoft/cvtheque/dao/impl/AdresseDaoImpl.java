@@ -2,8 +2,6 @@ package fr.neosoft.cvtheque.dao.impl;
 
 import java.util.List;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -16,13 +14,7 @@ import fr.neosoft.cvtheque.entities.Adresse;
  * @author Adrien Cambillau
  *
  */
-@Stateless
-@Local
 public class AdresseDaoImpl extends GenericDaoImpl<Adresse> implements AdresseDao {
-	
-	public AdresseDaoImpl(){
-		super();
-	}
 	
 	public AdresseDaoImpl(EntityManager entityManager) {
 		super();

@@ -2,6 +2,9 @@ package fr.neosoft.cvtheque.services;
 
 import java.util.List;
 
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+
 import fr.neosoft.cvtheque.entities.Experience;
 import fr.neosoft.cvtheque.entities.Utilisateur;
 import fr.neosoft.cvtheque.utils.FonctionnelleException;
@@ -13,6 +16,8 @@ import fr.neosoft.cvtheque.utils.FonctionnelleException;
  * @author Adrien Cambillau
  *
  */
+@Stateless
+@Remote(GererUtilisateurService.class)
 public interface GererUtilisateurService {
 	/**
 	 * Cette méthode va permettre la création d’un utilisateur à partir de son nom, prénom et de sa date de naissance. 

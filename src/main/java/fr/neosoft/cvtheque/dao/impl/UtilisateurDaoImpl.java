@@ -2,8 +2,6 @@ package fr.neosoft.cvtheque.dao.impl;
 
 import java.util.List;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -16,13 +14,7 @@ import fr.neosoft.cvtheque.entities.Utilisateur;
  * @author Adrien Cambillau
  *
  */
-@Stateless
-@Local
 public class UtilisateurDaoImpl extends GenericDaoImpl<Utilisateur> implements UtilisateurDao {
-	
-	public UtilisateurDaoImpl(){
-		super();
-	}
 
 	public UtilisateurDaoImpl(EntityManager entityManager) {
 		super();

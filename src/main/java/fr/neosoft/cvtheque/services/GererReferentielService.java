@@ -2,6 +2,9 @@ package fr.neosoft.cvtheque.services;
 
 import java.util.List;
 
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+
 import fr.neosoft.cvtheque.entities.Categorie;
 import fr.neosoft.cvtheque.entities.Client;
 import fr.neosoft.cvtheque.entities.Langage;
@@ -13,6 +16,8 @@ import fr.neosoft.cvtheque.utils.FonctionnelleException;
  * @author Adrien Cambillau
  *
  */
+@Stateless
+@Remote(GererReferentielService.class)
 public interface GererReferentielService {
 	/**
 	 * Cette méthode va permettre de créer un client dans l’application. 

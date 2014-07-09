@@ -2,9 +2,6 @@ package fr.neosoft.cvtheque.services.impl;
 
 import java.util.List;
 
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-
 import fr.neosoft.cvtheque.dao.CategorieDao;
 import fr.neosoft.cvtheque.dao.ClientDao;
 import fr.neosoft.cvtheque.dao.LangageDao;
@@ -23,8 +20,6 @@ import fr.neosoft.cvtheque.utils.Utils;
  * @author Adrien Cambillau
  *
  */
-@Stateless
-@Remote(GererReferentielService.class)
 public class GererReferentielServiceImpl implements GererReferentielService {
 	private ClientDao clientDao;
 	private LangageDao languageDao;

@@ -2,6 +2,9 @@ package fr.neosoft.cvtheque.services;
 
 import java.util.List;
 
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+
 import fr.neosoft.cvtheque.entities.Utilisateur;
 import fr.neosoft.cvtheque.utils.FonctionnelleException;
 import fr.neosoft.cvtheque.utils.TypeDocument;
@@ -12,6 +15,8 @@ import fr.neosoft.cvtheque.utils.TypeDocument;
  * @author Adrien Cambillau
  *
  */
+@Stateless
+@Remote(GererCVService.class)
 public interface GererCVService {
 	
 	/**

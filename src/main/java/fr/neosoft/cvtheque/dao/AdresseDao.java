@@ -2,6 +2,9 @@ package fr.neosoft.cvtheque.dao;
 
 import java.util.List;
 
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+
 import fr.neosoft.cvtheque.entities.Adresse;
 
 /**
@@ -10,6 +13,8 @@ import fr.neosoft.cvtheque.entities.Adresse;
  * @author Adrien Cambillau
  *
  */
+@Stateless
+@Local
 public interface AdresseDao extends GenericDao<Adresse>{
 	/**
 	 * Retrieve all the "adresse".

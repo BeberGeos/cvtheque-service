@@ -2,6 +2,9 @@ package fr.neosoft.cvtheque.dao;
 
 import java.util.List;
 
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+
 import fr.neosoft.cvtheque.entities.Client;
 
 /**
@@ -10,6 +13,8 @@ import fr.neosoft.cvtheque.entities.Client;
  * @author Adrien Cambillau
  *
  */
+@Stateless
+@Local
 public interface ClientDao extends GenericDao<Client>{
 	/**
 	 * Retrieve all the "client".
