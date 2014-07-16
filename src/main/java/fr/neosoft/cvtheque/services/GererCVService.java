@@ -38,5 +38,5 @@ public interface GererCVService {
 	 * @param typeDocument le type de document du CV
 	 * @throws FonctionnelleException
 	 */
-	public void createCV(final Long idUser, final TypeDocument typeDocument)throws FonctionnelleException;
+	public void createCV(final Long idUser)throws FonctionnelleException;
 }

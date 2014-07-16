@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/schemaCV" xmlns:tns="http://www.example.org/schemaCV">
+
+	<complexType name="identiteType">
+		<sequence>
+			<element name="nom" type="string" maxOccurs="1" minOccurs="1"></element>
+			<element name="prenom" type="string" maxOccurs="1" minOccurs="1"></element>
+			<element name="adresse" type="tns:adresseType" maxOccurs="1"
+				minOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+    <complexType name="adresseType">
+    	<sequence>
+    		<element name="numero" type="integer" maxOccurs="1" minOccurs="0" ></element>
+    		<element name="rue" type="string" maxOccurs="1" minOccurs="1"></element>
+    		<element name="codePostal" type="string" maxOccurs="1" minOccurs="1"></element>
+    		<element name="ville" type="string" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="fonctionType">
+    	<sequence>
+    		<element name="titre" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="anneeExperience" type="int" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="competenceDetailType">
+    	<sequence>
+    		<element name="titreCompetence" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="categorie" type="tns:categorieType" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="competenceType">
+        <sequence>
+            <element name="competence" type="tns:competenceDetailType" maxOccurs="unbounded" minOccurs="1"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="categorieType">
+    	<sequence>
+    		<element name="titreCategorie" type="string" maxOccurs="1"
+    			minOccurs="1" nillable="true">
+    		</element>
+    		<element name="libelleCategorie" type="string" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="experienceType">
+    	<sequence>
+    		<element name="client" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="localisation" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="dateDebut" type="tns:dateFormat" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="dateFin" type="tns:dateFormat" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="description" type="string" maxOccurs="unbounded"
+    			minOccurs="1">
+    		</element>
+    		<element name="pileLogiciel" type="string" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <simpleType name="dateFormat">
+        <restriction base="string">
+            <pattern value="(0[1-9]|[1,2]\d|3[0,1])/(0[1-9]|1[0-2])/(\d{4})"/>
+        </restriction>
+    </simpleType>
+
+	<element name="cv">
+    <complexType>
+      <sequence>
+	    <element name="identite" type="tns:identiteType"></element>
+	    <element name="fonction" type="tns:fonctionType"></element>
+	        <element name="competenceTechnique" type="tns:competenceType"></element>
+	        <element name="competenceFonctionnelle" type="tns:competenceType"></element>
+	        <element name="experience" type="tns:experienceType" minOccurs="1" maxOccurs="unbounded"></element>
+	        </sequence>
+	    </complexType>
+	</element>
+
+        
+</schema>
