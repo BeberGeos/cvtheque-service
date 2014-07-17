@@ -175,7 +175,7 @@ public class GererCVServiceImpl implements GererCVService {
 			Experience exp = iterExp.next();
 			for(Iterator<Competence> iterComp = exp.getCompetences().iterator(); iterComp.hasNext();){
 				Competence comp = iterComp.next();
-				if(comp.getLangage() == null){
+				if(comp.getCategorie().getLibelle().equals("Compétences fonctionnelles")){
 					categorieType.getLibelleCategorie().add(comp.getCategorie().getLibelle());
 				}
 			}
@@ -198,7 +198,7 @@ public class GererCVServiceImpl implements GererCVService {
 			Experience exp = iterExp.next();
 			for(Iterator<Competence> iterComp = exp.getCompetences().iterator(); iterComp.hasNext();){
 				Competence comp = iterComp.next();
-				if(comp.getLangage() != null){
+				if(comp.getCategorie().getLibelle().equals("Compétences techniques")){
 					categorieType.getLibelleCategorie().add(comp.getCategorie().getLibelle());
 				}
 			}
