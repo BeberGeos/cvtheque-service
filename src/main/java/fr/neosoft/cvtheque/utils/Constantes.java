@@ -24,5 +24,8 @@ public class Constantes {
 	public static final String NO_LANGUAGE_FOUND = "Aucun langage ne correspond à cet identifiant.";
 	public static final String NO_CATEGORY_FOUND = "Aucune catégorie trouvée.";
 	public static final String CLIENT_ALREADY_IN_DB = "Le client est déjà en base de données.";
+	public static final String XML_GENERATION_PROBLEM = "Erreur lors de la génération du fichier XML.";
+	public static final String FILE_IO_ERROR = "Erreur sur le flux de fichier.";
+	public static final String XML_SCHEMA_EXCEPTION = "Erreur sur le schema XML.";
 
 }
