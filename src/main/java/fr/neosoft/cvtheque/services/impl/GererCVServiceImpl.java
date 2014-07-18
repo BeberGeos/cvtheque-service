@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -29,6 +30,7 @@ import fr.neosoft.cvtheque.bean.FonctionType;
 import fr.neosoft.cvtheque.bean.IdentiteType;
 import fr.neosoft.cvtheque.bean.ObjectFactory;
 import fr.neosoft.cvtheque.dao.UtilisateurDao;
+import fr.neosoft.cvtheque.dao.impl.UtilisateurDaoImpl;
 import fr.neosoft.cvtheque.entities.Competence;
 import fr.neosoft.cvtheque.entities.Experience;
 import fr.neosoft.cvtheque.entities.Utilisateur;
@@ -53,6 +55,14 @@ public class GererCVServiceImpl implements GererCVService {
 	private static String dateJourFormat;
 	private UtilisateurDao userDao;
 	private static ObjectFactory objectFactory = new ObjectFactory();
+	private static String fonctionUser;
+	
+	//FIXME Tweak nécessaire pour les tests, ne pas utiliser pour autre chose
+	public GererCVServiceImpl(EntityManager entityManager, String fonctionUser){
+		super();
+		this.userDao = new UtilisateurDaoImpl(entityManager);
+		this.fonctionUser = fonctionUser;
+	}
 
 	public List<Utilisateur> searchUserByLanguageOrCategory(final Long idLangage, final
 			Long idCategory) throws FonctionnelleException {
@@ -73,7 +83,8 @@ public class GererCVServiceImpl implements GererCVService {
 		if(idUser == null){
 			throw new FonctionnelleException(Constantes.FIELD_REQUIRED, String.valueOf(idUser));
 		}
-		Utilisateur user = getUserDao().find(idUser);
+		int id = idUser.intValue();
+		Utilisateur user = getUserDao().find(id);
 		if(user == null){
 			throw new FonctionnelleException(Constantes.NO_USER_FOUND, String.valueOf(idUser));
 		}else{
@@ -111,9 +122,9 @@ public class GererCVServiceImpl implements GererCVService {
 
 			final JAXBContext jaxbContext;
 			try {
-				final String CHEMIN_FICHIER_GENERE = "resources\\CV_" + user.getNom() + "_" + user.getPrenom() 
+				final String CHEMIN_FICHIER_GENERE = "src\\main\\resources\\CV_" + user.getNom() + "_" + user.getPrenom() 
 						+ "_" + dateJourFormat + ".xml";
-				final String CHEMIN_SCHEMA ="resources\\xsd\\schemaCV.xsd";
+				final String CHEMIN_SCHEMA ="src\\main\\resources\\xsd\\schemaCV.xsd";
 
 				jaxbContext = JAXBContext.newInstance(Cv.class);
 				final Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
@@ -176,7 +187,7 @@ public class GererCVServiceImpl implements GererCVService {
 			for(Iterator<Competence> iterComp = exp.getCompetences().iterator(); iterComp.hasNext();){
 				Competence comp = iterComp.next();
 				if(comp.getCategorie().getLibelle().equals("Compétences fonctionnelles")){
-					categorieType.getLibelleCategorie().add(comp.getCategorie().getLibelle());
+					categorieType.getLibelleCategorie().add(comp.getLangage().getLibelle());
 				}
 			}
 		}
@@ -193,13 +204,14 @@ public class GererCVServiceImpl implements GererCVService {
 
 	private static CategorieType initCategorieTechniqueUtilisateur(final Utilisateur user){
 		CategorieType categorieType = objectFactory.createCategorieType();
-		categorieType.setTitreCategorie("");
+		
 		for(Iterator<Experience> iterExp = user.getExperiences().iterator(); iterExp.hasNext();){
 			Experience exp = iterExp.next();
 			for(Iterator<Competence> iterComp = exp.getCompetences().iterator(); iterComp.hasNext();){
 				Competence comp = iterComp.next();
 				if(comp.getCategorie().getLibelle().equals("Compétences techniques")){
-					categorieType.getLibelleCategorie().add(comp.getCategorie().getLibelle());
+					categorieType.setTitreCategorie(comp.getLibelle());
+					categorieType.getLibelleCategorie().add(comp.getLangage().getLibelle());
 				}
 			}
 		}
@@ -217,7 +229,7 @@ public class GererCVServiceImpl implements GererCVService {
 		Collections.sort(listeAnneesExp);
 		int premiereAnneeExp = listeAnneesExp.get(0).intValue();
 		fonctionTypeUtilisateur.setAnneeExperience(anneeEnCours - premiereAnneeExp);
-		//		fonctionTypeUtilisateur.setTitre("Analyste développeur Java Jee");
+		fonctionTypeUtilisateur.setTitre(getFonctionUser());
 	}
 
 	private static void initIdentiteUtilisateur(final IdentiteType identiteTypeUtilisateur,
@@ -237,6 +249,14 @@ public class GererCVServiceImpl implements GererCVService {
 
 	public UtilisateurDao getUserDao() {
 		return userDao;
+	}
+
+	public static String getFonctionUser() {
+		return fonctionUser;
+	}
+
+	public static void setFonctionUser(String fonctionUser) {
+		GererCVServiceImpl.fonctionUser = fonctionUser;
 	}
 
 }

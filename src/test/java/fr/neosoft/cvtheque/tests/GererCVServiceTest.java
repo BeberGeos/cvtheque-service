@@ -138,7 +138,7 @@ public class GererCVServiceTest {
 	@Test
 	public void testCreateCV(){
 		UtilisateurDao userDao = new UtilisateurDaoImpl(entityManager);
-		GererCVService cv = new GererCVServiceImpl(entityManager);
+		GererCVService cv = new GererCVServiceImpl(entityManager, "Développeur Java EE");
 		
 		Long id = 1L;
 		int userId = id.intValue();
