@@ -3,8 +3,16 @@ package fr.neosoft.cvtheque.tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.spi.PersistenceUnitTransactionType;
+
+import org.eclipse.persistence.config.PersistenceUnitProperties;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -14,7 +22,9 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import fr.neosoft.cvtheque.dao.UtilisateurDao;
+import fr.neosoft.cvtheque.dao.impl.UtilisateurDaoImpl;
 import fr.neosoft.cvtheque.entities.Utilisateur;
+import fr.neosoft.cvtheque.services.GererCVService;
 import fr.neosoft.cvtheque.services.impl.GererCVServiceImpl;
 import fr.neosoft.cvtheque.utils.Constantes;
 import fr.neosoft.cvtheque.utils.FonctionnelleException;
@@ -29,9 +39,33 @@ public class GererCVServiceTest {
 	
 	@Mock
 	private GererCVServiceImpl gererCVMock;
+	
+	private static EntityManagerFactory emf ;
+	private static EntityManager entityManager;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		Map properties = new HashMap();
+
+
+		// Ensure RESOURCE_LOCAL transactions is used.
+		properties.put(PersistenceUnitProperties.TRANSACTION_TYPE,
+				PersistenceUnitTransactionType.RESOURCE_LOCAL.name());
+
+		// Configure the internal EclipseLink connection pool
+		properties.put(PersistenceUnitProperties.JDBC_DRIVER, "com.mysql.jdbc.Driver");
+		properties.put(PersistenceUnitProperties.JDBC_URL, "jdbc:mysql://localhost:3306/cvtheque");
+		properties.put(PersistenceUnitProperties.JDBC_USER, "cvtheque");
+		properties.put(PersistenceUnitProperties.JDBC_PASSWORD, "cvtheque");
+
+		// Configure logging. FINE ensures all SQL is shown
+		properties.put(PersistenceUnitProperties.LOGGING_LEVEL, "FINE");
+		properties.put(PersistenceUnitProperties.LOGGING_TIMESTAMP, "false");
+		properties.put(PersistenceUnitProperties.LOGGING_THREAD, "false");
+		properties.put(PersistenceUnitProperties.LOGGING_SESSION, "false");
+
+		emf = Persistence.createEntityManagerFactory("cvtheque-service", properties);
+		entityManager = (EntityManager) emf.createEntityManager();
 	}
 
 	@AfterClass
@@ -99,5 +133,17 @@ public class GererCVServiceTest {
 		}catch(FonctionnelleException e){
 			fail("Ne doit pas lever d'exception.");
 		}
+	}
+	
+	@Test
+	public void testCreateCV(){
+		UtilisateurDao userDao = new UtilisateurDaoImpl(entityManager);
+		GererCVService cv = new GererCVServiceImpl(entityManager);
+		
+		Long id = 1L;
+		int userId = id.intValue();
+//		Utilisateur user = userDao.find(userId);
+//		System.out.println("HUEHUEHUE " + user.toString());
+		cv.createCV(id);
 	}
 }
