@@ -21,6 +21,10 @@ public class LangageDaoImpl extends GenericDaoImpl<Langage> implements LangageDa
 		setEntityManager(entityManager);
 	}
 	
+	public LangageDaoImpl() {
+		super();
+	}
+
 	public List<Langage> findAllLangages() {
 		final List<Langage> listLangages = getEntityManager().createNamedQuery("Langage.findAll").getResultList();
 		return listLangages;

@@ -20,6 +20,10 @@ public class CategorieDaoImpl extends GenericDaoImpl<Categorie> implements Categ
 		super();
 		setEntityManager(entityManager);
 	}
+	
+	public CategorieDaoImpl(){
+		super();
+	}
 
 	public List<Categorie> findAllCategories() {
 		final List<Categorie> listCategories = getEntityManager().createNamedQuery("Categorie.findAll").getResultList();

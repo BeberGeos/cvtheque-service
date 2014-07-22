@@ -21,6 +21,10 @@ public class AdresseDaoImpl extends GenericDaoImpl<Adresse> implements AdresseDa
 		setEntityManager(entityManager);
 	}
 	
+	public AdresseDaoImpl() {
+		super();
+	}
+
 	public List<Adresse> findAllAdresses(){
 		final List<Adresse> listAdresses = getEntityManager().createNamedQuery("Adresse.findAll").getResultList();
 		

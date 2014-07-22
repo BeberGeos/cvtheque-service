@@ -19,6 +19,10 @@ import javax.validation.ValidatorFactory;
  *
  */
 public class Utils {
+	
+	public Utils(){
+		
+	}
 
 	/**
 	 * Permet de transformer une chaine de caractères en date.
@@ -43,6 +47,23 @@ public class Utils {
 			throw new TechniqueException(Constantes.DATE_PARSE_ERROR, date);
 		}
 		return calendar;
+	}
+	
+	/**
+	 * Permet de créer une chaine de caractère à partir d'une date
+	 * @param cal la date à transformer
+	 * @return String la chaine de caractères représentant la date (format dd/MM/yyyy)
+	 * @throws FonctionnelleException
+	 */
+	public static String createStringFromDate(final Calendar cal) throws FonctionnelleException{
+		if(cal == null){
+			throw new FonctionnelleException(Constantes.DATE_NULL, "");
+		}
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		formatter.setLenient(false);
+		String date = formatter.format(cal.getTime());
+		
+		return date;
 	}
 
 	/**

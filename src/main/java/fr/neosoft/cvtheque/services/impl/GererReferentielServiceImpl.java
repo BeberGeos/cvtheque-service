@@ -25,6 +25,10 @@ public class GererReferentielServiceImpl implements GererReferentielService {
 	private LangageDao languageDao;
 	private CategorieDao categoryDao;
 
+	public GererReferentielServiceImpl() {
+		super();
+	}
+
 	public void createClient(final Client client) throws FonctionnelleException {
 		Client dbClient = getClientDao().find(client.getId());
 

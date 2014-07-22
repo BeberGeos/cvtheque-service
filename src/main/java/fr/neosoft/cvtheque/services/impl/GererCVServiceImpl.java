@@ -64,6 +64,10 @@ public class GererCVServiceImpl implements GererCVService {
 		this.fonctionUser = fonctionUser;
 	}
 
+	public GererCVServiceImpl() {
+		super();
+	}
+
 	public List<Utilisateur> searchUserByLanguageOrCategory(final Long idLangage, final
 			Long idCategory) throws FonctionnelleException {
 		List<Utilisateur> users;

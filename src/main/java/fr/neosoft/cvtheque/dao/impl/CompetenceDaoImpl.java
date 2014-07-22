@@ -20,6 +20,10 @@ public class CompetenceDaoImpl extends GenericDaoImpl<Competence> implements Com
 		setEntityManager(entityManager);
 	}
 
+	public CompetenceDaoImpl() {
+		super();
+	}
+
 	public List<Competence> findAllCompetences() {
 		final List<Competence> listCompetences = getEntityManager().createNamedQuery("Competence.findAll").getResultList();
 		return listCompetences;

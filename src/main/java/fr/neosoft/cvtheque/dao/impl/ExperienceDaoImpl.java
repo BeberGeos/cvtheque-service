@@ -20,6 +20,10 @@ public class ExperienceDaoImpl extends GenericDaoImpl<Experience> implements Exp
 		setEntityManager(entityManager);
 	}
 
+	public ExperienceDaoImpl() {
+		super();
+	}
+
 	public List<Experience> findAllExperiences() {
 		final List<Experience> listExperiences = getEntityManager().createNamedQuery("Experience.findAll").getResultList();
 		return listExperiences;

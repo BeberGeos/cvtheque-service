@@ -27,5 +27,6 @@ public class Constantes {
 	public static final String XML_GENERATION_PROBLEM = "Erreur lors de la génération du fichier XML.";
 	public static final String FILE_IO_ERROR = "Erreur sur le flux de fichier.";
 	public static final String XML_SCHEMA_EXCEPTION = "Erreur sur le schema XML.";
+	public static final String DATE_NULL = "Pas de date renseignée.";
 
 }

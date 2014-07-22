@@ -24,6 +24,10 @@ public class GererUtilisateurServiceImpl implements GererUtilisateurService {
 	private AdresseDao adresseDao;
 	private ExperienceDao experienceDao;
 
+	public GererUtilisateurServiceImpl() {
+		super();
+	}
+
 	public void createUser(final Utilisateur user)
 			throws FonctionnelleException {
 		final Utilisateur dbUser = getUserDao().find(user.getId());

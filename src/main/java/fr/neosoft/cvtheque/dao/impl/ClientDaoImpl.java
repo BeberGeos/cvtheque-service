@@ -21,6 +21,10 @@ public class ClientDaoImpl extends GenericDaoImpl<Client> implements ClientDao {
 		setEntityManager(entityManager);
 	}
 
+	public ClientDaoImpl() {
+		super();
+	}
+
 	public List<Client> findAllClients() {
 		final List<Client> listClients = getEntityManager().createNamedQuery("Client.findAll").getResultList();
 		return listClients;

@@ -20,6 +20,10 @@ public class UtilisateurDaoImpl extends GenericDaoImpl<Utilisateur> implements U
 		super();
 		setEntityManager(entityManager);
 	}
+	
+	public UtilisateurDaoImpl(){
+		super();
+	}
 
 	public List<Utilisateur> findAllUtilisateurs() {
 		final List<Utilisateur> listUtilisateurs = getEntityManager().createNamedQuery("Utilisateur.findAll").getResultList();
