@@ -3,32 +3,39 @@
     <xsl:template name="experienceTemplate" match="listeExperience">
 
         <xsl:for-each select="experience">
-            <div class="entete">
-                <div class="enteteColonne">
-                    <xsl:value-of select="client"/>
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="enteteColonne">
+                                <xsl:value-of select="client"/>
+                            </div>
+                            <div class="enteteColonne">
+                                <xsl:value-of select="localisation"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-left">
+                            <div class="enteteColonne">du
+                                <xsl:value-of select="dateDebut"/>
+                                au
+                                <xsl:value-of select="dateFin"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="enteteColonne">
-                    <xsl:value-of select="localisation"/>
-                </div>
-                <div class="enteteColonne">du
-                    <xsl:value-of select="dateDebut"/>
-                    au
-                    <xsl:value-of select="dateFin"/>
-                </div>
-            </div>
-            <div class="experience">
-                <div class="presentation">
+                <div class="panel-body">
                     <xsl:for-each select="description">
                         <p>
                             <xsl:value-of select="." disable-output-escaping="yes"/>
                         </p>
                     </xsl:for-each>
                 </div>
-                <div class="technique">
-                        <xsl:for-each select="pileLogiciel">
-                                <xsl:value-of select="."/>
-                                <xsl:if test="position() != last()">,&#160;</xsl:if>
-                        </xsl:for-each>
+                <div class="panel-footer">
+                    <xsl:for-each select="pileLogiciel">
+                        <xsl:value-of select="."/>
+                        <xsl:if test="position() != last()">,&#160;</xsl:if>
+                    </xsl:for-each>
                 </div>
             </div>
         </xsl:for-each>

@@ -18,47 +18,42 @@
             <head>
                 <title>CV de&#160;<xsl:value-of select="identite/prenom"/>&#160;<xsl:value-of select="identite/nom"/></title>
 
-                <link rel="stylesheet" href="css/css.css"/>
+                <link rel="stylesheet" href="css/bootstrap.min.css"/>
+                <link rel="stylesheet" href="css/style.css"/>
+
             </head>
             <body>
-                <div id="container">
-                    <div id="header">
-                    <div id="logo">
-                        <img alt="logo Néo Soft" src="image/Logo Neo-soft.png" width="154" height="88"
-                             id="logo_NeoSoft"></img>
-                        <img alt="Label Luci Néo-soft" src="image/Label Lucie.png" width="294" height="45"
-                             id="logo_labelLucie"></img>
-                    </div>
-                        <div id="titreFonction">
-                            <p class="fonction">
-                                <xsl:value-of select="fonction/titre"/>
-                            </p>
-                            <p class="anneeExperince">
-                                <xsl:value-of select="fonction/anneeExperience"/>
-                                années d'expérience
-                            </p>
-                        </div>
-                        <div id="identite">
-                            <p>habite à
-                                <xsl:value-of select="identite/adresse/ville"/>
-                            </p>
+                <div class="bs-docs-header" id="header">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="fonts/avatar.jpg" alt="Avatar" class="img-thumbnail" style="width: 140px; height: 140px;"/>
+                            </div>
+                            <div class="col-md-8">
+                                <h1><xsl:value-of select="fonction/titre"/></h1>
+                                <p><b><xsl:value-of select="fonction/anneeExperience"/></b> années d'expérience</p>
+                                <p>Habite à <b><xsl:value-of select="identite/adresse/ville"/></b></p>
+                            </div>
                         </div>
                     </div>
-
-                    <div id="content">
-
-                        <div id="content-competence">
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
                             <xsl:call-template name="competenceTechniqueTemplate"></xsl:call-template>
+                        </div>
 
+                        <div class="col-lg-6">
                             <xsl:call-template name="competenceFonctionnelleTemplate"></xsl:call-template>
                         </div>
-
-                        <div id="content-experience">
-                            <xsl:call-template name="experienceTemplate"></xsl:call-template>
-                        </div>
-
                     </div>
-                    <div id="footer">
+                    <div class="bordure"></div>
+                    <div id="content-experience">
+                        <xsl:call-template name="experienceTemplate"></xsl:call-template>
+                    </div>
+                </div>
+                <div class="footer">
+                    <div class="container">
                         Copyright © CV AC, 2014
                     </div>
                 </div>
