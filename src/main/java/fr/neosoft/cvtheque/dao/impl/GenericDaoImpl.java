@@ -22,12 +22,12 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 	}
 
 	public T create(T t) {
-		this.entityManager.persist(t);
+		getEntityManager().persist(t);
 		return t;
 	}
 
 	public void delete(Object id) {
-		this.entityManager.remove(this.entityManager.getReference(type, id));
+		getEntityManager().remove(this.entityManager.getReference(type, id));
 	}
 
 	public T find(Object id) {
@@ -35,7 +35,7 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 	}
 
 	public T update(T t) {
-		return this.entityManager.merge(t);
+		return getEntityManager().merge(t);
 	}
 
 	public EntityManager getEntityManager() {
